@@ -453,6 +453,7 @@ __DICTIONARY__
 __RULES__`;
 
   let modelId = null;
+  let modelSpares = [];          // 備用模型（主模型失敗時依次頂上）
   let busy = false;
   let corrections = [];          // 使用者回饋修正記憶
   let dictText = DEFAULT_DICT;   // 當前生效詞庫（雲端最新版）
@@ -483,7 +484,14 @@ __RULES__`;
       const models = await withTimeout(cloud.llm.models.list(), 8000);
       const usable = models.filter(m => m.disabled !== true);
       const pick = PREFERRED_MODELS.map(id => usable.find(m => m.id === id)).find(Boolean);
-      return (pick || usable[0]) ? (pick || usable[0]).id : null;
+      const first = pick || usable[0];
+      if (!first) return null;
+      // 記下幾個備胎：優先列表裡其餘的，再補其他可用模型
+      modelSpares = [
+        ...PREFERRED_MODELS.filter(id => id !== first.id && usable.some(m => m.id === id)),
+        ...usable.map(m => m.id).filter(id => id !== first.id && !PREFERRED_MODELS.includes(id)),
+      ].slice(0, 4);
+      return first.id;
     };
     for (let i = 0; i < 2; i++) {          // 最多試兩次
       try {
@@ -569,6 +577,7 @@ ${lines}
   }
 
   function describeError(e) {
+    if (e && (e.name === 'AbortError' || e.name === 'TimeoutError')) return '翻譯超時，請重試。';
     const code = (e && e.error && e.error.code) || '';
     if (code.startsWith('quota_')) return '額度不足或請求過於頻繁，請稍後再試。';
     if (code.startsWith('auth_')) return '服務鑒權失敗，請通過正式地址訪問。';
@@ -621,43 +630,62 @@ ${lines}
     fbInput.value = '';
 
     lastQuery = text;
+
+    /* 單個模型的嘗試，超時或報錯一律丟出，交給外層換下一個模型 */
+    async function attempt(model) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 25000);
+      try {
+        let acc = '';
+        for await (const chunk of cloud.llm.chat.completions.create({
+          model,
+          messages: [
+            { role: 'system', content: buildSystemPrompt() },
+            { role: 'user', content: text },
+          ],
+          stream: true,
+          signal: controller.signal,
+        })) {
+          const delta = chunk.choices[0]?.delta;
+          if (delta?.content) {
+            acc += delta.content;
+            show(acc.trimStart(), false);
+          }
+        }
+        if (!acc.trim()) throw new Error('empty');
+        return acc;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    const candidates = [modelId, ...modelSpares.filter(id => id !== modelId)].slice(0, 3);
     let answer = '';
-    let timedOut = false;
-    const controller = new AbortController();
-    const timer = setTimeout(() => { timedOut = true; controller.abort(); }, 30000);
+    let lastErr = null;
 
     try {
-      for await (const chunk of cloud.llm.chat.completions.create({
-        model: modelId,
-        messages: [
-          { role: 'system', content: buildSystemPrompt() },
-          { role: 'user', content: text },
-        ],
-        stream: true,
-        signal: controller.signal,
-      })) {
-        const delta = chunk.choices[0]?.delta;
-        if (delta?.content) {
-          answer += delta.content;
-          show(answer.trimStart(), false);
+      for (const m of candidates) {
+        try {
+          answer = await attempt(m);
+          modelId = m;                 // 記住這次成功的，下次優先用它
+          lastErr = null;
+          break;
+        } catch (e) {
+          lastErr = e;
+          answer = '';
+          outEl.classList.remove('show', 'err');
+          outEl.textContent = '';
         }
       }
       if (!answer) {
-        show('沒有得到譯文，請重試。', true);
+        const code = (lastErr && lastErr.error && lastErr.error.code) || '';
+        console.error('[Leavean] 翻譯失敗', lastErr);
+        show(describeError(lastErr) + (code ? '（' + code + '）' : ''), true);
       } else {
         lastAnswer = answer.trim();
         fbEl.classList.add('show');
       }
-    } catch (e) {
-      if (timedOut) {
-        show(answer ? answer : '翻譯超時，請重試。', !answer);
-        if (answer) { lastAnswer = answer.trim(); fbEl.classList.add('show'); }
-      } else {
-        show(answer ? answer : describeError(e), !answer);
-        if (answer) { lastAnswer = answer.trim(); fbEl.classList.add('show'); }
-      }
     } finally {
-      clearTimeout(timer);
       busy = false;
       goEl.disabled = false;
       goEl.textContent = '翻譯';
