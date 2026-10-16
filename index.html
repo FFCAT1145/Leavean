@@ -240,6 +240,31 @@
   .panel-btn:disabled { opacity: .5; cursor: default; }
   .panel-note { font-size: 12px; color: var(--faint); margin-right: auto; }
 
+  /* 連線設定（反向代理） */
+  .proxy-box {
+    width: min(720px, 100%);
+    margin: 10px auto 0;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .proxy-box.show { display: flex; }
+  .proxy-tip { font-size: 12px; line-height: 1.7; color: var(--faint); }
+  .proxy-tip b { color: var(--blue); font-weight: 700; }
+  .proxy-row { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+  .proxy-row input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    min-width: 0;
+  }
+  .proxy-row input::placeholder { color: var(--faint); }
+
   .spin {
     width: 15px;
     height: 15px;
@@ -282,8 +307,16 @@
   <textarea id="dictText" spellcheck="false"></textarea>
   <div class="panel-actions">
     <span class="panel-note" id="dictNote"></span>
+    <button class="panel-btn" id="proxyBtn">連線設定</button>
     <button class="panel-btn" id="dictCancel">取消</button>
     <button class="panel-btn primary" id="dictSave">保存</button>
+  </div>
+  <div class="proxy-box" id="proxyBox">
+    <div class="proxy-tip" id="proxyTip"></div>
+    <div class="proxy-row">
+      <input id="proxyInput" type="text" placeholder="https://你的-worker.账号.workers.dev" autocomplete="off" spellcheck="false">
+      <button class="panel-btn primary" id="proxySave">確定</button>
+    </div>
   </div>
 </div>
 
@@ -299,12 +332,56 @@ ${l.stack}`)}else c=o?.stack??"";let f=this.url.toString().length;return o?.name
 //# sourceMappingURL=index.global.js.map
 </script>
 <script>
-  /* ===== 雲服務初始化 ===== */
+  /* ===== 運行環境 ===== */
+  /* 雲服務有 Origin 白名單，只接受 *.app.workbuddy.host 與 localhost。
+     部署在 GitHub Pages 等外部域名時，瀏覽器會以 CORS 攔下所有請求，
+     此時改走自建的反向代理（Cloudflare Worker），由服務端代為轉發。 */
+  const REAL_ENDPOINT = 'https://ai-chat-page-61327.app.workbuddy.host';
+
+  /* 把 Cloudflare Worker 部署好之後，把地址填在這裡（結尾不要帶斜線）。
+     留空則表示不啟用代理。範例：
+     const PROXY_BASE = 'https://leavean-proxy.你的账号.workers.dev';
+
+     注意：這一行的值會存進瀏覽器 localStorage，所以部署好代理後，
+     直接在網頁上按「詞庫」面板下方的「連線設定」填寫即可，不必改代碼。 */
+  const PROXY_BASE_HARDCODED = '';
+  const PROXY_STORAGE_KEY = 'leavean.proxyBase';
+
+  function readProxyBase() {
+    try {
+      const saved = localStorage.getItem(PROXY_STORAGE_KEY);
+      if (saved !== null) return saved.trim();
+    } catch (e) { /* 隱私模式等情況 */ }
+    return PROXY_BASE_HARDCODED;
+  }
+  function writeProxyBase(v) {
+    try { localStorage.setItem(PROXY_STORAGE_KEY, v); } catch (e) {}
+  }
+
+  let PROXY_BASE = readProxyBase();
+
+  function isOriginAllowed(origin) {
+    try {
+      const u = new URL(origin);
+      const h = u.hostname;
+      return h === 'localhost' || h === '127.0.0.1' ||
+             h === 'app.workbuddy.host' || h.endsWith('.app.workbuddy.host');
+    } catch (e) { return false; }
+  }
+
+  /* 當前應該把請求發到哪裡：直連 or 走代理 */
+  function resolveEndpoint() {
+    if (isOriginAllowed(location.origin)) return REAL_ENDPOINT;
+    if (PROXY_BASE) return PROXY_BASE.replace(/\/+$/, '') + '/api';
+    return REAL_ENDPOINT;   // 沒有代理可用，只能直連（會被 CORS 攔，但至少報錯明確）
+  }
+
   const publicConfig = {
-    endpoint: 'https://ai-chat-page-61327.app.workbuddy.host',
+    endpoint: resolveEndpoint(),
     oauthRelayBaseUrl: 'https://www.workbuddy.cn/v2/as/genie-baas/oauth',
     publishableKey: 'wbpk_lG2R7lJCGtNzLG1xTjyfI9_vrcnHEUPjrfXwyRzkH6IXtDj24Yr9hWZ',
   };
+  const viaProxy = publicConfig.endpoint !== REAL_ENDPOINT;
   let cloud = null;
 
   /* 本地 SDK 缺失時（例如 assets 沒上傳），依次從多個 CDN 兜底加載 */
@@ -470,8 +547,8 @@ __RULES__`;
   /* ===== 模型（優先選響應快、不貴的，避免長時間思考） ===== */
   const PREFERRED_MODELS = ['hy3', 'hy3-x', 'glm-5.3-flash', 'deepseek-v4.1-flash'];
   const FALLBACK_MODEL = 'hy3';        // 模型列表拉不到時的硬兜底
-  /* 網路不通時，直接把請求發給已知可用的固定位址（繞過任何代理/快取干擾） */
-  const LLM_RAW_BASE = 'https://ai-chat-page-61327.app.workbuddy.host/.cloud/llm';
+  /* 網路不通時，用原生 fetch 直接打端點（自動跟隨是否走代理） */
+  const LLM_RAW_BASE = publicConfig.endpoint + '/.cloud/llm';
 
   /* 防止請求懸掛：超過 ms 直接判失敗 */
   function withTimeout(promise, ms) {
@@ -636,6 +713,11 @@ ${lines}
 
   function describeError(e) {
     if (e && (e.name === 'AbortError' || e.name === 'TimeoutError')) return '翻譯超時，請重試。';
+    if (e && (e.name === 'TypeError' || /Failed to fetch|NetworkError|network/i.test(String(e.message || '')))) {
+      return viaProxy
+        ? '無法連接伺服器。請檢查網路，或確認反向代理（Cloudflare Worker）仍在運行。'
+        : '網絡被瀏覽器攔截（跨域限制）。請改用雲端正式網址訪問本站。';
+    }
     const code = (e && e.error && e.error.code) || '';
     if (code.startsWith('quota_')) return '額度不足或請求過於頻繁，請稍後再試。';
     if (code.startsWith('auth_')) return '服務鑒權失敗，請通過正式地址訪問。';
@@ -808,6 +890,64 @@ ${lines}
     dictArea.setSelectionRange(0, 0);
   }
   function closeDict() { dictPanel.classList.remove('show'); }
+
+  /* ===== 連線設定（反向代理） ===== */
+  function proxyStatusText() {
+    if (isOriginAllowed(location.origin)) {
+      return '目前網址已被雲服務直接允許，<b>無需設定代理</b>。';
+    }
+    if (PROXY_BASE) {
+      return '目前經由代理訪問：<b>' + PROXY_BASE + '</b>。留空並確定可恢復為直連。';
+    }
+    return '目前網址不在雲服務允許範圍內，翻譯會被瀏覽器攔截。<br>' +
+           '請部署 Cloudflare Worker 反向代理（見目錄中的 worker.js），然後把地址填在這裡。';
+  }
+
+  function toggleProxyBox() {
+    const box = document.getElementById('proxyBox');
+    const show = !box.classList.contains('show');
+    box.classList.toggle('show', show);
+    if (show) {
+      document.getElementById('proxyTip').innerHTML = proxyStatusText();
+      document.getElementById('proxyInput').value = PROXY_BASE;
+      document.getElementById('proxyInput').focus();
+    }
+  }
+
+  function applyProxy(value) {
+    const v = String(value || '').trim().replace(/\/+$/, '');
+    if (v && !/^https?:\/\//i.test(v)) {
+      document.getElementById('proxyTip').innerHTML = '地址需以 <b>https://</b> 開頭，請檢查後重試。';
+      return;
+    }
+    writeProxyBase(v);
+    PROXY_BASE = v;
+    const endpoint = resolveEndpoint();
+    publicConfig.endpoint = endpoint;
+    cloud = WorkBuddyCloud.createWorkBuddyCloud({
+      endpoint,
+      oauthRelayBaseUrl: publicConfig.oauthRelayBaseUrl,
+      publishableKey: publicConfig.publishableKey,
+    });
+    modelId = null;
+    modelSpares = [];
+    dictText = DEFAULT_DICT;
+    corrections = [];
+    void viaProxy;                                   // 僅供提示文案分支
+    const box = document.getElementById('proxyBox');
+    document.getElementById('proxyTip').innerHTML =
+      v ? '已切換到代理 <b>' + v + '</b>，正在重新連線…' : '已切換為直連，正在重新連線…';
+    Promise.all([loadCorrections(), loadDictionary()]).then(() => {
+      loadModels();
+      setTimeout(() => { box.classList.remove('show'); closeDict(); }, 900);
+    });
+  }
+
+  document.getElementById('proxyBtn').addEventListener('click', toggleProxyBox);
+  document.getElementById('proxySave').addEventListener('click', () => applyProxy(document.getElementById('proxyInput').value));
+  document.getElementById('proxyInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); applyProxy(e.target.value); }
+  });
 
   async function commitDict() {
     const text = dictArea.value.trim();
