@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>里府語詞典</title>
+<link rel="icon" href="assets/logo.png">
+<style>
+  :root {
+    --bg: #F5EFEA;
+    --blue: #122E8A;
+    --blue-hover: #0D2270;
+    --line: #DED4CB;
+    --ink: #24304F;
+    --faint: #A79E97;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    color: var(--ink);
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 左上角小圖標 */
+  .mark {
+    position: fixed;
+    top: 22px;
+    left: 24px;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    user-select: none;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px 10vh;
+    gap: 26px;
+  }
+
+  .wrap { width: min(560px, 88vw); }
+
+  .dir {
+    border: none;
+    background: none;
+    padding: 0 0 8px;
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--faint);
+    cursor: pointer;
+  }
+  .dir:hover { color: var(--blue); }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1.5px solid var(--line);
+    padding-bottom: 12px;
+    transition: border-color .2s;
+  }
+  .bar:focus-within { border-color: var(--blue); }
+
+  .bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+    padding: 4px 2px;
+    min-width: 0;
+  }
+
+  .go {
+    border: none;
+    background: var(--blue);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background .2s, transform .12s;
+  }
+  .go:hover { background: var(--blue-hover); }
+  .go:active { transform: scale(.97); }
+  .go:disabled { opacity: .5; cursor: default; }
+
+  .out {
+    width: min(560px, 88vw);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.9;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    display: none;
+  }
+  .out.show { display: block; }
+  .out.err { color: #A8432F; font-size: 15px; }
+
+  /* 反饋 */
+  .fb {
+    width: min(560px, 88vw);
+    margin-top: -14px;
+    display: none;
+  }
+  .fb.show { display: block; }
+  .fb-link {
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    font-size: 13px;
+    color: var(--faint);
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+  }
+  .fb-link:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+  .fb-form {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+    width: 100%;
+  }
+  .fb-form.show { display: flex; }
+  .fb-form input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    min-width: 0;
+  }
+  .fb-form input::placeholder { color: var(--faint); }
+  .fb-send {
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 13px;
+    color: var(--blue);
+    cursor: pointer;
+    padding: 2px 4px;
+    flex-shrink: 0;
+  }
+  .fb-send:disabled { color: var(--faint); cursor: default; }
+
+  /* 詞庫入口 */
+  .dict-link {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--faint);
+    cursor: pointer;
+    padding: 4px 8px;
+    z-index: 5;
+  }
+  .dict-link:hover { color: var(--blue); }
+
+  /* 詞庫編輯面板 */
+  .panel {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: none;
+    flex-direction: column;
+    padding: 22px 24px 18px;
+    z-index: 20;
+  }
+  .panel.show { display: flex; }
+  .panel textarea {
+    flex: 1;
+    width: min(720px, 100%);
+    margin: 0 auto;
+    background: transparent;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    outline: none;
+    resize: none;
+    padding: 16px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+  .panel textarea:focus { border-color: var(--blue); }
+  .panel-actions {
+    width: min(720px, 100%);
+    margin: 14px auto 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 22px;
+  }
+  .panel-btn {
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 13px;
+    color: var(--faint);
+    cursor: pointer;
+  }
+  .panel-btn:hover { color: var(--ink); }
+  .panel-btn.primary {
+    background: var(--blue);
+    color: #fff;
+    padding: 8px 24px;
+    border-radius: 999px;
+  }
+  .panel-btn.primary:hover { background: var(--blue-hover); color: #fff; }
+  .panel-btn:disabled { opacity: .5; cursor: default; }
+  .panel-note { font-size: 12px; color: var(--faint); margin-right: auto; }
+
+  .spin {
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255,255,255,.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    display: inline-block;
+    vertical-align: -2px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<img class="mark" src="assets/logo.png" alt="">
+
+<main>
+  <div class="wrap">
+    <button class="dir" id="dirBtn">里府語 → 漢語</button>
+    <div class="bar">
+      <input id="q" type="text" autocomplete="off" spellcheck="false">
+      <button class="go" id="go">翻譯</button>
+    </div>
+  </div>
+  <div class="out" id="out"></div>
+
+  <div class="fb" id="fb">
+    <button class="fb-link" id="fbLink">反饋</button>
+    <div class="fb-form" id="fbForm">
+      <input id="fbInput" type="text" placeholder="正確譯文" autocomplete="off">
+      <button class="fb-send" id="fbSend">提交</button>
+    </div>
+  </div>
+</main>
+
+<button class="dict-link" id="dictLink">詞庫</button>
+
+<div class="panel" id="dictPanel">
+  <textarea id="dictText" spellcheck="false"></textarea>
+  <div class="panel-actions">
+    <span class="panel-note" id="dictNote"></span>
+    <button class="panel-btn" id="dictCancel">取消</button>
+    <button class="panel-btn primary" id="dictSave">保存</button>
+  </div>
+</div>
+
+<!-- 雲服務 SDK：本地文件優先，避免 CDN 不可達導致整頁失效 -->
+<script src="assets/cloud-sdk.global.js"></script>
+<script>
+  /* ===== 雲服務初始化 ===== */
+  const publicConfig = {
+    endpoint: 'https://ai-chat-page-61327.app.workbuddy.host',
+    oauthRelayBaseUrl: 'https://www.workbuddy.cn/v2/as/genie-baas/oauth',
+    publishableKey: 'wbpk_lG2R7lJCGtNzLG1xTjyfI9_vrcnHEUPjrfXwyRzkH6IXtDj24Yr9hWZ',
+  };
+  let cloud = null;
+
+  /* 本地 SDK 缺失時，退回 CDN 再加載一次 */
+  async function ensureSdk() {
+    if (typeof WorkBuddyCloud !== 'undefined') return true;
+    await new Promise(resolve => {
+      const s = document.createElement('script');
+      s.src = 'https://unpkg.com/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js';
+      s.onload = resolve;
+      s.onerror = resolve;
+      document.head.appendChild(s);
+    });
+    return typeof WorkBuddyCloud !== 'undefined';
+  }
+
+  /* ===== 里府語詞典（來自 LFD.docx，含語法，繁體） ===== */
+  const DICTIONARY = `
+Leavé n. 里府；里府人；
+Leavéan n. 里府語
+Leap n. 新的（東西）
+Leapire a. 新的
+Kii 我
+Fane 你
+Et 是，(相當於英語裏的is)
+Un n. 一里烏（里府長度單位）
+Unia n. 里烏（複數）
+Montane n. 山
+Hiitotane n. 苔原
+Omessur n. 人民；人；人們
+Omessures n. 人民；人們（複數）
+Veant n. 天空
+Dimble a. 昏暗的
+Swion n. 會，將會（相當於英語裏的will）
+Awkusa n. 苔原（回火語）
+Roie 中間名，多用於表示貴族身份
+Teiho n. 山
+Coinble a. 巨大的；遼闊的；
+Àrita n. 火
+Àritune n. 亮的（東西）
+Àrible a. 明亮的
+Àriihosi v. 照耀
+Blancre a. 白色的
+Blanriho n. 火山
+Luronble a. 偉大的
+Lurone n. 偉大；偉大的（東西）
+Khalesi v. 站立；屹立；
+Tun prep. 在~的上面（物理上的）；貫穿~之中（時間上的）
+Hollune n. 大海；大洋
+Placre a. 平坦的；光滑的
+Plane n. 平坦；光滑；光滑面；平原
+Chiutasi v. 居住
+Ciensi v. 看；凝視；盯着
+Kincre a. 友善的
+Elari n. 晨光；曙光
+Elaritane n. 破曉之時；
+Jrri v. 日升
+Fiesi v. 日落
+Dun n. 大地
+Tochamsi v. 分享
+Légen n. 名字
+Sorté v. 工作
+Tovo adv. 一起
+Irré n. 希望
+Noraimsi v. 違約；背棄約定；
+Int 在動詞後面表否定
+Khan 與英語裏的The相同
+As 表示強調，類似英語裏用do的強調動詞
+K’ 位於部分專有名詞前
+De prep. 的；屬於，A de B 表示 B的A
+Ca prep. 去；到；爲了 和英語裏to類似
+Lase prep. 和英語裏For類似 lase A ca B 爲了A去做B
+Tis prep. 表修飾，命名，前者後面接動詞從句，後者接名字
+Sin prep. 來自，從
+Let 表修飾，與上文de類似
+Na 和，與英語的and一樣
+Nisen 與英語with相同
+Ver 與英語or相同
+Edives 無論，與英語whether相同
+
+
+地名
+Bellu 白露
+Foulkin 浮金
+Champsion 香章
+Tinieve 提尼微（回火語）
+Turinken 圖林根（回火語）
+Riuesu 流蘇
+Lienhat 萊因哈特（回火語）
+Khan Blanriho 聖潔之山（與萊因哈特指同一座死火山）
+Foutaine 楓丹
+
+語法
+前綴後綴（不一定嚴格遵守）
+動詞： -si
+副詞： -vo
+數詞： -se
+序數詞： -te
+形容詞： -ble/-cre/-re
+過去式： -ca
+進行時： -ow
+將來時： al-
+完成時： aka + V.
+被動語態： evo + V.
+複數： -ia
+句型
+主語 + 謂語 例：Kii sorté 我工作
+主語 + 謂語 + 賓語 例：K’àritune àriihosi dun 太陽照耀大地
+主語 + 系動詞 + 表語 例 Kii et kincre
+主語 + 謂語 + 賓語 + 賓語補足語 例 Khan àrita àriihosi fane let àrible
+(let介詞，表修飾)
+否定：若有謂語，int(否定)在賓語後面，若動詞是系動詞，int放表語後面
+`;
+
+  const DEFAULT_DICT = DICTIONARY.trim();
+
+  const RULES_TO_ZH = `【翻譯要求】
+1. 用戶輸入的內容視為里府語（Leavéan），請翻譯成漢語（繁體）。
+2. 只輸出譯文本身：不要逐詞對照，不要標註詞性，不要解釋，不要複述詞典內容，不要加「譯文：」等前綴，不要寒暄。
+3. 輸入是單詞或詞組時，直接給出漢語釋義；多個義項用「；」分隔。
+4. 輸入是句子時，直接給出通順的漢語整句，並遵循詞典【語法】一節的句型與詞綴規則。
+5. 詞典中沒有的詞不要臆造釋義，可在譯文中用「（詞典未收錄）」標註，並給出拼寫最接近的已收錄詞。
+6. 大小寫、重音符號（é、à 等）不改變詞義。
+7. 若輸入明顯不是里府語（例如漢語或英語），只回一句：本工具只做里府語→漢語翻譯。`;
+
+  const RULES_TO_LE = `【翻譯要求】
+1. 用戶輸入的內容視為漢語，請翻譯成里府語（Leavéan）。
+2. 只輸出里府語譯文本身：不要標註詞性，不要解釋，不要複述詞典內容，不要加前綴，不要寒暄。
+3. 優先使用詞典中已收錄的詞；查不到時，用詞典【語法】的前綴後綴與句型規則構造（動詞 -si、副詞 -vo、形容詞 -ble/-cre/-re、過去式 -ca、進行時 -ow、將來時 al-、完成時 aka + V.、被動 evo + V.、複數 -ia、否定 int 的位置）。
+4. 確實無法構造的詞，用最接近的已收錄詞，並在後面標註（詞典未收錄）。
+5. 輸出沿用詞典中的原文拼寫（含重音符號），不要自行拉丁化或改拼寫。
+6. 若輸入不是漢語（例如里府語或英語），只回一句：本工具只做漢語→里府語翻譯。`;
+
+  const BASE_PROMPT_TEMPLATE = `你是里府語（Leavéan）翻譯助手。你只能依據下面的《里府語詞典》進行翻譯，不得自行編造詞義。
+
+【詞典】（格式：詞條 詞性 釋義；含語法章節）
+__DICTIONARY__
+
+__RULES__`;
+
+  let modelId = null;
+  let busy = false;
+  let corrections = [];          // 使用者回饋修正記憶
+  let dictText = DEFAULT_DICT;   // 當前生效詞庫（雲端最新版）
+  let dirToZh = true;            // true：里府語→漢語；false：漢語→里府語
+  let lastQuery = '';
+  let lastAnswer = '';
+
+  const $ = id => document.getElementById(id);
+  const qEl = $('q'), goEl = $('go'), outEl = $('out'), dirBtn = $('dirBtn');
+  const fbEl = $('fb'), fbLink = $('fbLink'), fbForm = $('fbForm'), fbInput = $('fbInput'), fbSend = $('fbSend');
+  const dictLink = $('dictLink'), dictPanel = $('dictPanel'), dictArea = $('dictText');
+  const dictSave = $('dictSave'), dictCancel = $('dictCancel'), dictNote = $('dictNote');
+
+  /* ===== 模型（優先選響應快、不貴的，避免長時間思考） ===== */
+  const PREFERRED_MODELS = ['hy3', 'hy3-x', 'glm-5.3-flash', 'deepseek-v4.1-flash'];
+  async function loadModels() {
+    try {
+      const models = await cloud.llm.models.list();
+      const usable = models.filter(m => m.disabled !== true);
+      const pick = PREFERRED_MODELS.map(id => usable.find(m => m.id === id)).find(Boolean);
+      modelId = (pick || usable[0]) ? (pick || usable[0]).id : null;
+    } catch (e) {
+      modelId = null;
+    }
+  }
+
+  /* ===== 詞庫：讀取 + 保存（每次保存新增一版，取最新為準） ===== */
+  async function loadDictionary() {
+    try {
+      const { data, error } = await cloud.database
+        .from('dict_revisions')
+        .select('content')
+        .order('created_at', { ascending: false })
+        .limit(1);
+      if (error) throw error;
+      const latest = Array.isArray(data) && data[0] && data[0].content;
+      dictText = latest ? String(data[0].content).trim() : DEFAULT_DICT;
+    } catch (e) {
+      dictText = DEFAULT_DICT;
+    }
+  }
+
+  async function saveDictionary(text) {
+    const { error } = await cloud.database
+      .from('dict_revisions')
+      .insert({ content: text, note: 'edit' });
+    if (error) throw error;
+  }
+
+  /* ===== 修正記憶：讀取 + 寫入 ===== */
+  async function loadCorrections() {
+    try {
+      const { data, error } = await cloud.database
+        .from('corrections')
+        .select('source_text, correction')
+        .order('created_at', { ascending: false })
+        .limit(60);
+      if (error) throw error;
+      corrections = Array.isArray(data) ? data : [];
+    } catch (e) {
+      corrections = [];
+    }
+  }
+
+  async function saveCorrection(source, aiTranslation, correction) {
+    const { error } = await cloud.database
+      .from('corrections')
+      .insert({ source_text: source, ai_translation: aiTranslation, correction });
+    if (error) throw error;
+  }
+
+  function buildSystemPrompt() {
+    const rules = dirToZh ? RULES_TO_ZH : RULES_TO_LE;
+    let prompt = BASE_PROMPT_TEMPLATE
+      .replace('__DICTIONARY__', dictText || DEFAULT_DICT)
+      .replace('__RULES__', rules);
+
+    const lines = corrections
+      .filter(c => c && c.source_text && c.correction)
+      .map(c => `${String(c.source_text).trim()} = ${String(c.correction).trim()}`)
+      .join('\n');
+    if (lines) {
+      prompt += `
+
+【用戶修正記憶（最高優先級）】
+以下條目來自使用者的反饋糾錯，視為對詞典的補充與修正。遇到相同或高度相似的輸入時，必須嚴格採用這裡的譯法，不要沿用詞典中的舊譯法：
+${lines}
+`;
+    }
+    return prompt;
+  }
+
+  /* ===== 展示 ===== */
+  function show(text, isError) {
+    outEl.textContent = text;
+    outEl.classList.toggle('err', !!isError);
+    outEl.classList.add('show');
+  }
+
+  function describeError(e) {
+    const code = (e && e.error && e.error.code) || '';
+    if (code.startsWith('quota_')) return '額度不足或請求過於頻繁，請稍後再試。';
+    if (code.startsWith('auth_')) return '服務鑒權失敗，請通過正式地址訪問。';
+    if (code.startsWith('gateway_') || code.startsWith('model_')) return '模型暫時不可用，請稍後重試。';
+    if (code.startsWith('request_')) return '請求有誤：' + ((e.error && e.error.message) || '');
+    return '翻譯失敗，請重試。';
+  }
+
+  /* ===== 方向切換 ===== */
+  function applyDir() {
+    dirBtn.textContent = dirToZh ? '里府語 → 漢語' : '漢語 → 里府語';
+  }
+  dirBtn.addEventListener('click', () => {
+    dirToZh = !dirToZh;
+    applyDir();
+    outEl.classList.remove('show');
+    fbEl.classList.remove('show');
+    qEl.focus();
+  });
+  applyDir();
+
+  /* ===== 翻譯 ===== */
+  async function translate() {
+    const text = qEl.value.trim();
+    if (!text || busy) return;
+    if (!cloud) { show('組件尚未載入完成，請稍候或刷新重試。', true); return; }
+    if (!modelId) { show('模型尚未就緒，請稍後重試。', true); return; }
+
+    busy = true;
+    goEl.disabled = true;
+    goEl.innerHTML = '<span class="spin"></span>';
+    outEl.classList.remove('show', 'err');
+    outEl.textContent = '';
+    fbEl.classList.remove('show');
+    fbForm.classList.remove('show');
+    fbLink.style.display = '';
+    fbInput.value = '';
+
+    lastQuery = text;
+    let answer = '';
+    let timedOut = false;
+    const controller = new AbortController();
+    const timer = setTimeout(() => { timedOut = true; controller.abort(); }, 30000);
+
+    try {
+      for await (const chunk of cloud.llm.chat.completions.create({
+        model: modelId,
+        messages: [
+          { role: 'system', content: buildSystemPrompt() },
+          { role: 'user', content: text },
+        ],
+        stream: true,
+        signal: controller.signal,
+      })) {
+        const delta = chunk.choices[0]?.delta;
+        if (delta?.content) {
+          answer += delta.content;
+          show(answer.trimStart(), false);
+        }
+      }
+      if (!answer) {
+        show('沒有得到譯文，請重試。', true);
+      } else {
+        lastAnswer = answer.trim();
+        fbEl.classList.add('show');
+      }
+    } catch (e) {
+      if (timedOut) {
+        show(answer ? answer : '翻譯超時，請重試。', !answer);
+        if (answer) { lastAnswer = answer.trim(); fbEl.classList.add('show'); }
+      } else {
+        show(answer ? answer : describeError(e), !answer);
+        if (answer) { lastAnswer = answer.trim(); fbEl.classList.add('show'); }
+      }
+    } finally {
+      clearTimeout(timer);
+      busy = false;
+      goEl.disabled = false;
+      goEl.textContent = '翻譯';
+    }
+  }
+
+  /* ===== 反饋 ===== */
+  fbLink.addEventListener('click', () => {
+    fbForm.classList.add('show');
+    fbLink.style.display = 'none';
+    fbInput.focus();
+  });
+
+  async function submitFeedback() {
+    const correction = fbInput.value.trim();
+    if (!correction || fbSend.disabled) return;
+    fbSend.disabled = true;
+    fbSend.textContent = '…';
+    try {
+      await saveCorrection(lastQuery, lastAnswer, correction);
+      await loadCorrections();          // 立即生效，下一次翻譯就帶上這條記憶
+      fbForm.classList.remove('show');
+      fbLink.style.display = '';
+      fbLink.textContent = '已記住';
+      setTimeout(() => { fbLink.textContent = '反饋'; }, 2600);
+    } catch (e) {
+      fbSend.textContent = '提交';
+      fbSend.disabled = false;
+      fbForm.classList.remove('show');
+      fbLink.style.display = '';
+      fbLink.textContent = '提交失敗，重試';
+      return;
+    }
+    fbSend.textContent = '提交';
+    fbSend.disabled = false;
+    fbInput.value = '';
+  }
+
+  fbSend.addEventListener('click', submitFeedback);
+  fbInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); submitFeedback(); }
+  });
+
+  /* ===== 詞庫編輯面板 ===== */
+  function openDict() {
+    dictArea.value = dictText;
+    dictNote.textContent = '';
+    dictSave.textContent = '保存';
+    dictSave.disabled = false;
+    dictPanel.classList.add('show');
+    dictArea.focus();
+    dictArea.setSelectionRange(0, 0);
+  }
+  function closeDict() { dictPanel.classList.remove('show'); }
+
+  async function commitDict() {
+    const text = dictArea.value.trim();
+    if (!text || dictSave.disabled) return;
+    dictSave.disabled = true;
+    dictSave.textContent = '…';
+    try {
+      await saveDictionary(text);
+      await loadDictionary();            // 立即生效，後續翻譯用新詞庫
+      dictNote.textContent = '已保存，立即生效';
+      setTimeout(closeDict, 700);
+    } catch (e) {
+      dictNote.textContent = '保存失敗，請重試';
+      dictSave.disabled = false;
+      dictSave.textContent = '保存';
+    }
+  }
+
+  dictLink.addEventListener('click', openDict);
+  dictCancel.addEventListener('click', closeDict);
+  dictSave.addEventListener('click', commitDict);
+  dictArea.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); commitDict(); }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && dictPanel.classList.contains('show')) closeDict();
+  });
+
+  /* ===== 主交互 ===== */
+  goEl.addEventListener('click', translate);
+  qEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); translate(); }
+  });
+
+  (async function init() {
+    const sdkOk = await ensureSdk();
+    if (!sdkOk) {
+      show('翻譯組件載入失敗，請檢查網路後刷新頁面。', true);
+      goEl.disabled = true;
+      return;
+    }
+    cloud = WorkBuddyCloud.createWorkBuddyCloud({
+      endpoint: publicConfig.endpoint,
+      oauthRelayBaseUrl: publicConfig.oauthRelayBaseUrl,
+      publishableKey: publicConfig.publishableKey,
+    });
+    await Promise.all([loadModels(), loadCorrections(), loadDictionary()]);
+    qEl.focus();
+  })();
+</script>
+</body>
+</html>
