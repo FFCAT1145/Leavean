@@ -470,6 +470,8 @@ __RULES__`;
   /* ===== 模型（優先選響應快、不貴的，避免長時間思考） ===== */
   const PREFERRED_MODELS = ['hy3', 'hy3-x', 'glm-5.3-flash', 'deepseek-v4.1-flash'];
   const FALLBACK_MODEL = 'hy3';        // 模型列表拉不到時的硬兜底
+  /* 網路不通時，直接把請求發給已知可用的固定位址（繞過任何代理/快取干擾） */
+  const LLM_RAW_BASE = 'https://ai-chat-page-61327.app.workbuddy.host/.cloud/llm';
 
   /* 防止請求懸掛：超過 ms 直接判失敗 */
   function withTimeout(promise, ms) {
@@ -477,6 +479,62 @@ __RULES__`;
       promise,
       new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms)),
     ]);
+  }
+
+  /* 繞過 SDK 直連翻譯：用原生 fetch 讀 SSE，不依賴 SDK 內部狀態 */
+  async function translateViaRawFetch(model, appText, signal, onDelta) {
+    const res = await fetch(LLM_RAW_BASE + '/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-wb-webapp-access-key': publicConfig.publishableKey,
+      },
+      body: JSON.stringify({
+        model,
+        stream: true,
+        messages: [
+          { role: 'system', content: buildSystemPrompt() },
+          { role: 'user', content: appText },
+        ],
+      }),
+      signal,
+    });
+    if (!res.ok) {
+      let code = '', message = 'HTTP ' + res.status;
+      try {
+        const j = await res.json();
+        code = (j && j.error && j.error.code) || j.code || '';
+        message = (j && j.error && j.error.message) || j.message || message;
+      } catch (e) { /* 非 JSON */ }
+      const err = new Error(message);
+      err.error = { code, message };
+      throw err;
+    }
+    if (!res.body) throw new Error('no stream body');
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = '';
+    let acc = '';
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split('\n');
+      buf = lines.pop();
+      for (const line of lines) {
+        const s = line.trim();
+        if (!s.startsWith('data:')) continue;
+        const payload = s.slice(5).trim();
+        if (!payload || payload === '[DONE]') continue;
+        try {
+          const j = JSON.parse(payload);
+          const piece = j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content;
+          if (piece) { acc += piece; onDelta(acc); }
+        } catch (e) { /* 忽略不完整分片 */ }
+      }
+    }
+    return acc;
   }
 
   async function loadModels() {
@@ -631,12 +689,13 @@ ${lines}
 
     lastQuery = text;
 
-    /* 單個模型的嘗試，超時或報錯一律丟出，交給外層換下一個模型 */
+    /* 單個模型的嘗試：SDK 路徑為主，失敗則改用直連；超時或報錯一律丟出，交給外層換下一個模型 */
     async function attempt(model) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 25000);
       try {
         let acc = '';
+        const onDelta = t => show(t.trimStart(), false);
         for await (const chunk of cloud.llm.chat.completions.create({
           model,
           messages: [
@@ -647,13 +706,22 @@ ${lines}
           signal: controller.signal,
         })) {
           const delta = chunk.choices[0]?.delta;
-          if (delta?.content) {
-            acc += delta.content;
-            show(acc.trimStart(), false);
-          }
+          if (delta?.content) { acc += delta.content; onDelta(acc); }
         }
-        if (!acc.trim()) throw new Error('empty');
-        return acc;
+        if (acc.trim()) return acc;
+        throw new Error('empty');
+      } catch (e) {
+        if (e && (e.name === 'AbortError' || e.name === 'TimeoutError')) throw e;
+        console.warn('[Leavean] SDK 路徑失敗，改用直連重試：', model, e);
+        const fallbackCtrl = new AbortController();
+        const t2 = setTimeout(() => fallbackCtrl.abort(), 25000);
+        try {
+          const acc2 = await translateViaRawFetch(model, text, fallbackCtrl.signal, t => show(t.trimStart(), false));
+          if (acc2.trim()) return acc2;
+          throw new Error('empty');
+        } finally {
+          clearTimeout(t2);
+        }
       } finally {
         clearTimeout(timer);
       }
