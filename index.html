@@ -468,15 +468,31 @@ __RULES__`;
 
   /* ===== 模型（優先選響應快、不貴的，避免長時間思考） ===== */
   const PREFERRED_MODELS = ['hy3', 'hy3-x', 'glm-5.3-flash', 'deepseek-v4.1-flash'];
+  const FALLBACK_MODEL = 'hy3';        // 模型列表拉不到時的硬兜底
+
+  /* 防止請求懸掛：超過 ms 直接判失敗 */
+  function withTimeout(promise, ms) {
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms)),
+    ]);
+  }
+
   async function loadModels() {
-    try {
-      const models = await cloud.llm.models.list();
+    const attempt = async () => {
+      const models = await withTimeout(cloud.llm.models.list(), 8000);
       const usable = models.filter(m => m.disabled !== true);
       const pick = PREFERRED_MODELS.map(id => usable.find(m => m.id === id)).find(Boolean);
-      modelId = (pick || usable[0]) ? (pick || usable[0]).id : null;
-    } catch (e) {
-      modelId = null;
+      return (pick || usable[0]) ? (pick || usable[0]).id : null;
+    };
+    for (let i = 0; i < 2; i++) {          // 最多試兩次
+      try {
+        const id = await attempt();
+        if (id) { modelId = id; return; }
+      } catch (e) { /* 失敗則短暫等待後重試 */ }
+      await new Promise(r => setTimeout(r, 600));
     }
+    modelId = FALLBACK_MODEL;              // 列表拿不到也要能翻，真失敗時由錯誤碼提示
   }
 
   /* ===== 詞庫：讀取 + 保存（每次保存新增一版，取最新為準） ===== */
@@ -579,13 +595,26 @@ ${lines}
     const text = qEl.value.trim();
     if (!text || busy) return;
     if (!cloud) { show('組件尚未載入完成，請稍候或刷新重試。', true); return; }
-    if (!modelId) { show('模型尚未就緒，請稍後重試。', true); return; }
 
     busy = true;
     goEl.disabled = true;
     goEl.innerHTML = '<span class="spin"></span>';
     outEl.classList.remove('show', 'err');
     outEl.textContent = '';
+
+    /* 模型還沒拉到（列表請求失敗/超時）：現補一次，別讓使用者乾等 */
+    if (!modelId) {
+      show('正在載入模型…', false);
+      await loadModels();
+      if (!modelId) {
+        show('模型載入失敗，請檢查網絡後刷新頁面。', true);
+        busy = false; goEl.disabled = false; goEl.textContent = '翻譯';
+        return;
+      }
+      outEl.classList.remove('show');
+      outEl.textContent = '';
+    }
+
     fbEl.classList.remove('show');
     fbForm.classList.remove('show');
     fbLink.style.display = '';
@@ -729,7 +758,8 @@ ${lines}
       oauthRelayBaseUrl: publicConfig.oauthRelayBaseUrl,
       publishableKey: publicConfig.publishableKey,
     });
-    await Promise.all([loadModels(), loadCorrections(), loadDictionary()]);
+    await Promise.all([loadCorrections(), loadDictionary()]);
+    loadModels();          // 後台載入，不阻塞；點翻譯時若還沒好會自動補載
     qEl.focus();
   })();
 </script>
