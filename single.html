@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>里府語詞典</title>
+<link rel="icon" href="data:image/png;base64,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">
+<style>
+  :root {
+    --bg: #F5EFEA;
+    --blue: #122E8A;
+    --blue-hover: #0D2270;
+    --line: #DED4CB;
+    --ink: #24304F;
+    --faint: #A79E97;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    color: var(--ink);
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 左上角小圖標 */
+  .mark {
+    position: fixed;
+    top: 22px;
+    left: 24px;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    user-select: none;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px 10vh;
+    gap: 26px;
+  }
+
+  .wrap { width: min(560px, 88vw); }
+
+  .dir {
+    border: none;
+    background: none;
+    padding: 0 0 8px;
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--faint);
+    cursor: pointer;
+  }
+  .dir:hover { color: var(--blue); }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1.5px solid var(--line);
+    padding-bottom: 12px;
+    transition: border-color .2s;
+  }
+  .bar:focus-within { border-color: var(--blue); }
+
+  .bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+    padding: 4px 2px;
+    min-width: 0;
+  }
+
+  .go {
+    border: none;
+    background: var(--blue);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background .2s, transform .12s;
+  }
+  .go:hover { background: var(--blue-hover); }
+  .go:active { transform: scale(.97); }
+  .go:disabled { opacity: .5; cursor: default; }
+
+  .out {
+    width: min(560px, 88vw);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.9;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    display: none;
+  }
+  .out.show { display: block; }
+  .out.err { color: #A8432F; font-size: 15px; }
+
+  /* 反饋 */
+  .fb {
+    width: min(560px, 88vw);
+    margin-top: -14px;
+    display: none;
+  }
+  .fb.show { display: block; }
+  .fb-link {
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    font-size: 13px;
+    color: var(--faint);
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+  }
+  .fb-link:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+  .fb-form {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+    width: 100%;
+  }
+  .fb-form.show { display: flex; }
+  .fb-form input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    min-width: 0;
+  }
+  .fb-form input::placeholder { color: var(--faint); }
+  .fb-send {
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 13px;
+    color: var(--blue);
+    cursor: pointer;
+    padding: 2px 4px;
+    flex-shrink: 0;
+  }
+  .fb-send:disabled { color: var(--faint); cursor: default; }
+
+  /* 詞庫入口 */
+  .dict-link {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--faint);
+    cursor: pointer;
+    padding: 4px 8px;
+    z-index: 5;
+  }
+  .dict-link:hover { color: var(--blue); }
+
+  /* 詞庫編輯面板 */
+  .panel {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: none;
+    flex-direction: column;
+    padding: 22px 24px 18px;
+    z-index: 20;
+  }
+  .panel.show { display: flex; }
+  .panel textarea {
+    flex: 1;
+    width: min(720px, 100%);
+    margin: 0 auto;
+    background: transparent;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    outline: none;
+    resize: none;
+    padding: 16px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+  .panel textarea:focus { border-color: var(--blue); }
+  .panel-actions {
+    width: min(720px, 100%);
+    margin: 14px auto 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 22px;
+  }
+  .panel-btn {
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 13px;
+    color: var(--faint);
+    cursor: pointer;
+  }
+  .panel-btn:hover { color: var(--ink); }
+  .panel-btn.primary {
+    background: var(--blue);
+    color: #fff;
+    padding: 8px 24px;
+    border-radius: 999px;
+  }
+  .panel-btn.primary:hover { background: var(--blue-hover); color: #fff; }
+  .panel-btn:disabled { opacity: .5; cursor: default; }
+  .panel-note { font-size: 12px; color: var(--faint); margin-right: auto; }
+
+  .spin {
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(255,255,255,.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    display: inline-block;
+    vertical-align: -2px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<img class="mark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAnXklEQVR42u2dZ2CV1f3Hz3rW3TcDwgphhSEiyJai4sS6qtW/A/dWFAWpC6viQm3Valut1tqhrbZVpAxZsoNsBATBhEDI3rn7meec/4sHEZEVSCCJ5/uCF7zKvedzz2//Dkw2VAMhoWMVEl+BkABISAAkJAASEgAJCQmAhARAQgIgIQGQkJAASEgAJCQAEhIACQkJgIQEQEICICEBkJCQAEhIACQkABISAAkJgISEBEBCAiAhAZCQAEhISAAkJAASEgAJCYCEhARAQgIgIQGQkACoZYpzzhgXJyoAOjZ6gCxjryZxLhgSAB0DPQreUdiwYGWxokqMiWMVADVGjHNJJV99U/vk79ZwzhEUxyoAatwVBADjPq+0Nb9287YaVSPCGRIANVqUMSNmzlq6G0lIOEICoEbLshiUybwVxbGIQQgUCAmAGiMITZsSBW8vbFizuUrVJC6smADoqF0gDiCwbQYBsGw2e0kRRFBYMQFQ42Tb1KHMo+IvviypqU7KwhMSADXSieacAUUmhcXRlRsrFY8kYjEBEGhMNsj1hQBjfPrCQkYZEAkhAVAjPCHGAQCMcY9Glq4pKymNawoWlQ0BUCPy0QACzoEk4eq61JotlUQhwogJgI4aoO9ggRBQxucs3QNa5/VDWxX1bQmg70nyaGTlxoqy8oQitz4r5vfLEAqATqgg4IBxDr8rzisSLqlM5G0sl1XSiorzEADG+D+m77AsimDrSKa3oY5E/oOjYIzPW17MGW8tsZhDmRZSP5z57fwVxd6g6jAGBUAnjh0IIPoeIca4ppK8DRWVlQlFbgUZRcaBqkpFuxre+Xjr1AnDIOWACxN2gj/Jfo4D50CVcUllfNXmKllpDRlFzmWVTJqWN3Z015656cmkjVpJW1PbAehAxxMCh/IFecWtIOyi3BdS/zl9+1ff1PzqrtONmIkxFE70Cf8kP/zJMsY1Ba/YUF5bm2rJdTHGuazgyor4wy/nPXrn6WkZHttmIgo7STcQ/0GjtKqQ3SWx9VurFZWwlkoQZ0DRyKQX87LSPbde1S8VNVGr6sltOwARjH6MlOWw2UuLAIIt0yd1KPMHlU/nFHw089tpD49UFEIph1Bkok8KQAQd8NUzBjwKWbK6tLamJVoxxoGqkMrKxIRnl19+QfeLzs5JxFuT99PWAJIwghDuH/5yzhUZ7amIb8mvk1ugFeNcVshjr66qrdefeWA4bZ11O9Qm8tAQcP7jGwgAABHUDWflxgqIW1aPokO5L6j8Z07+3z/eOv6mAQNPbZdqPaF7W/WB4AF+tJtilAj6cmOFY9CWczyMcVUlxcXRR1/5Mrtr6KGbT7MMB7bOeTbUZuoYkuSasAODZE0hX+fXFZXG1JZUWCUETvnd6qKCuom3DszODpo6baXzkG0HIFUm+EeHwDmQCKqu09dsqSIqbgmFVYcyX1D94LMdH07fMfyMLrde1VdP2AhD0Q90UqvYnCsyRgcdxoCAcb58fRlg4KQXVhnjHk3K31n/9JtrFRk/dufpwaDqOAxC0VB2UvkBHCgKRujHThBgDKgyXrulOhrRJXKSg3nXyD722y/37G649Pzul57bPRlrfaF7mzRhh7yBOOeKQnaVxLbtrD+5/WUOZd6g8vY/v565aFdmlu/RO08HEDDR0tpCeoFUGR/KEBAEEilr1aYqKOOTlW1hjPu88sZNldPeWc8YuOXKvkMGZqWSFm7ly0TaiA/EGPd6JIwObqE4BxijVV9VMOvkBDucA4SgYdKHX1pZU6/37h5+6JaBZspBrX8VDWorPjRXZKxIiPOD1JIY55qMN++oraxOyhI+8UaMMe7xK9P+tH7lxgqJ4Mm3DezY0WdZFEIBUMtAiHEgE6Qeol7hLsArq0pu/rZOVvAJ7i+jlPsD8sJlRW9+sAUjeObQjjf8ok8yZrVq37nt7UjkkoS9KuEcHDRYhxBYNtuwtRpgdIL/MFnG1TWph1/KY5SpCv71+KGyhFlbmXhsS0s2kaIQxjg8hJuNMVy/tZpaJ7RowDlQVPz4b1fl747aDrvp8t4/G9YpkWj1vnPb8oEgYIyrMva6y+3gwRv/VBlvK6ivqk3JJyob5Cad//bJNx/OytdU3KWj/5G7BpuGg5CYTAWAMU5pSykuMcYVmXg9Ej3EDcQ5kCRUWZvcUdggKyfCglDGvR55246aJ15b7fOQlOFMuXtwp05+y2wLvvPxAoQQ9Plkf1AhGFJ68jd8cwAQgX6vzPkhB8EwgimDbtpeC3CzNyhyADCCpk0nPLciGrd00zl/VJdxv+jT2vPOTQAQ55wQVNdg3DFl0Qefbo+nbH9I8XqkvRfSSTVlIb98mL+AA4ARWL+tmtNmnzaklHv8yrS31i1bW+rzEE0hUx8YjhBse8seyDGcE6Xc55XWbKr6y8fb+vfJuOisrleP7TmkfzuIoZ6yHYcjdMIvaQ4ABKGAcjiAOJAlvGNXQyRqagpuvu5jx2GBkDp7YeGrf9uUEdZqGvQp9wwZPDArFjEIhj/17RwQAtuhwTTt3uv6SyoprUy8+v6mC2+bedUDc2csKKSM+0MKwdChJzxQhSAjrB5mopMzLkuotDJRUhGXJdRMs59uvX1PceyhF1bIBCd1e2DfzEm3DjLaUOR1vD4QRtBK2ZeM6dapnRcAkBlWIQSzlxRdO3HBuTfPeOsfm2NJKxDSJAmdWIxgekh1p5wPdUkRjOIJ+5ud9UjCvBnKmBwAiCCH/MHnlxdXJDQVU8qff3B4KKTYrblno4kBghCaJs3uErjk7Jx40nYRCfplv1faml//4PMrxtz42ctvrauuSwXCmkROFEaMh4Pq4XN0EALLplsL6pvJB2KUe/3KtLc3zFqyOyOs1tYbN1/R56Ix3eJtJe/cZFEYhIA67OYr+gR8kkOZG7W6i3nCQWVPeeKJ11edfcNnz7+5ti5iBMIqwZBS1rxThYyF/LIs48NsiOYcEIK2FdTxZpj+dIe8Zi8ofOnPG9JDalK3u2cHn7xvqGW21n7n5g3j9ZQ9+NT2F47uGk9+//NyYzFFxhkhraZBf/rN1WfeMP2lP66PJ21/SHXDk+YryKeHVEVGjINDwcEBkAjaXRpriBikSdOJruuza0/kwRdWYIwQgrpBnxo/tFNHv2HSNvz+CzqeJD0A4M6r+/3YanDOHcokgjNCWnVd6snXV4+58bP3PtoKIfAHZMaaPm8EAaSUp4VUj3q4XRyMcVlC5dXJSjcf3UR+tNut4VA+/pllJZVxv0eqixhXj+1x3WW9EzGTYCh2JB7MlcYwlbJHD+t09rBOicRBZppcjGSCM9PUovL4vU8vveC2mbMX7fb5ZE0lTe4YUcY9GkkLKQ5l8NA+DsYokbR3lcaa8E0WxrjHJz/1+uoFecVpQTWZsjtn+Z6fOJI6bX/VMDrOzRKEoAk3DjiMh8g4t2ymyjgcVNZvrb76wXk3Tl5QsCcSCKkQNdlCSbcc5lFIRkijh80TIghNm+YXRQBGTVKIcRzmD6kfTt/+xgeb00Iq40A36DMPDOuWE9R1B0EoADpcPJ9MWOeOyr7gZ9mx+OHyHIxzSrnPI/k80sdzCs65acbLb60HHPi9clNdRZRyRSXpYdWhh3eQOYRwd0kMUHb86U5KeSCgrPuqYuK0PE0lGMGGqHHlBd1vvKJPImoSAlt+FwOl/Hh+xqgJzD+GD910miyjI/4ZrveTFlR0w3ni9VVj75i5ckN5IKQhBJvmKsKwYzsvP9JKA4Lh7tIYs9lx+raMcUXBlTWpO6YsTum2ImPddDpn+V58eCR1WAvfqe1WMCUJ+UOKP6gc80/peAHCGCYT1lkjOl91Yc9o3CRH0a7lUI4xzAhp676uvviu2VNeWWlT5vfKzvF/6Rx06eCDRyKeYFRWnYwnbYwQPz7HGUBwz1NLvtlZ7/PKjHHToi9MHNG9W8hoSZPU+xPvUM451xTiDyk+r1QfMT78dPsDTy2NxC18TOsDUFNVfx696/TMNM2yKTy6b9+hzO+RCIYvvbth7G0z12yuDKRpnIPjDNC6tPcd6cfECUYNUaM2ohMCj3kZOePc45Of+O2qWUt2pwUVwHlDzLz+ktzrL++diLagkjv/jhsAgFeTAiFFkUlBUeS9j7aOe3jhgMs++tUrX57aJz3gl4+tOEhAU+yW03WnT27Gfdef+tSbazLDmnN0OUPXbGWEtU3f1Pz8zllP3DPkwVtO45QbJj2GA4AQAMraZ2geVWL0sLlEDBtiZl3E6NElaHB6DN+a47BAmvbW3za98Y/N6UGVcWCYTq+uoRcmjbRMClqA48w5YJwDDgiBmlcCBBkJe+M3NUvWlC5eVfp1QV1pRQLYbNwv+77yyBkdOwdTUQOcqGr8wRjCUE9Y99844H+Ldn2zs8HTmGdvHcp8Xslh/JFXVq7eVPm7J8/s1N4XixmEoMYC5DisQztfwCfFEjYhh7yQIYKWzqpqdYCPZZm347BAWJ29oPDR364K+GT3gzLGX31sVIf2vvhJ7fjZx40kIa8qAQwTUTNvQ+WiVSWLV5duza+LJS2ZIMOkud1CUycMv/aSXNuisfoUOdZWcdJUgzWOw0JB9ZkHhl/1wNxjSOEgCDLC2owvdm0tqPvjU2edc2bXRNSAADQmUIK2wzPCalpQbYiahBBwiDwhBIAyXlGTBLDRnWWOG3ZtqrzzycUIAQQhQqA2Yjx25+Cfn9v9ZDVs7DX9EMgSUlQJQFhfp+dtKF+4smTp2rIdhZGkbssS8nsln0cyTXrTL/pMfXB4dpdAImoCCMhxDBqQpvoMGMN43Lz4nJxbruzz7n+2ZYY1uzFOsesVpQXVkorEL8Z//vT9wx6+bZBhOo7DjtIb3ZsKUknnLN+O3Q3qod0bCCGlrLpOB8jdaAYbsY/XKxUWR2+YvDCWsL0a4QDEk/bZQztNuW+InjBPcMPGPm4UCcsqAYBXVSXXrCheuLJk+frywuKoYTqKTDQFZ6SpgIO6iNG9S+DZB0dcc3Ev26KxiEGOe0aFgCZd9W0YznMPjVizuerb3Q1ej9TYypdDmaYSxvgjr6zcXlj/xpQzVZWkdOcof9aMcUklnbJ8jsPQYcfOOQD1jbT6lHJNJTX1+nUT5+8piwd9kptBCQeU16eMVhWSTNonxnj9gBuNAM4rKpNfflUxb0XxivXle8riDmWqglWFeDTiRovJlOM49OYr+kydMLxTJ388asLju3iaBSAIgW2x9LD65+fPuejOmbbNcOOzvYxxCEFGWP3r9O1FZfH3p52b3dEfO7oEgWufuncJwMO+VMIBxwhGYhZwjjaX6KZ8EoY9btL8Tdtrw0HFcRhGMJa035gyesApmbGGRjttx86NjGWVAAbKK+NfLq6cu3xP3vryPeVxyrimEp9XghAwBjjnnEPOQV2DnpsTfn7i8CvH9rRMGo8YuOmG40jTfkiMYTxhDR7Y/rXHR9/+xKKAT95Xdm2kOeMZYW35uvKxt83860vnDj+9QyxyFCcEAWC8d04YHf7VZg4QgvGkxehRNXUwxmUJWza9cfKCZevK00Kq7TCJoNoG/b7rTr3pl/3iEbP56NnnFysyklUZAF5WkVi5oWLuij15G8qLyxPuwyB+n+xysy98IRgldZtzfs91p/76vqHt23vjMRNBgJt0tJKAZtjXHI+YN1zZZ1dx9Jnfr81MU51jauFwHBYOKMUV8Uvvnv3ei+dedmGPeINxeBsBAeAO79rJH/DJrmN+8F0LburBcCjl8EgOEKVcUbDlsBseXjh3WXF6WLVtRgiMxq2RA7NeeHiknrKbY85rHzeyhBRNAgBWViXyFhXNXlaUt6G8pCLhOnxBn+y2suwf9mIEGed1EWNA7/TnJ434+Zhulu7EogZphqlcAprn1YFkzPr1+KFVtam3P9qamXa0maEfu0QejVgWu2HygrfiZ91wVb94g3GYjn0IoWnTzlm+zDStpCKhyvhQDRsIQt2klB0hdeZQ7tFIMmXfMHnB3OXF6WHVcRjG0LRYRkh959kxXo+UStlN6Du7eb/v43AEa2tS8/OKZy8tWra2rKgs/kNuDqxGQwgwQvGkRQiaeOvAx+4enB7W4lETIUCaZ6abNFN/IOfAMOnvnjwzZTh/n7EjM6xSdizFb0q5JCFK2Z1PLmmImQ/cOjARMwE/OEMQAkpZOKDkdPTvKompCj5UlM45t2165HyPX66oSd0wecHydeUuPRACwLlt098/dd4pfTKOyrAetfPHOJAI9HplQGBDnb50Tdnny4oWry4tLI7ZlO1/3xy0dIgxdBzeENWHD8yaNmnEWWd0MZJ2c+elCGi2HlPKGKDg3efPURT87sfb0sMqdJ/Gbfw3ixHyeOCkaXnRuPXk+KHJpMUPwRBjgKi4X8+0+XnFCMrsUKkgCCjjhyKac04ZCIS1Lduqb370i20F9WlB1S3VYYRqG/SpE4Zf8fOeTeI4M84ZAxhBr0eCEk7GjCWrS+csLfpiVUl+UdSy6P5+8aFKzhACjGA0YXk16ZkJwyfecprPK8ciBkaouQNDAprzAS/qMM75W8+cnZXhnfbOelXBqoyPwSVinEMIQgHl6TfXWDZ9dtLIRMw6yBNP35mB/rlphwsAOQAAEoJcr+nA9gbGFJl4PeST2fkPvbC8PmqGA4prgglBtQ3GdZfkPn7P4OTxFbzckApCoKqEKNjWna+21cxZVvT5sj1bC+p0g6oK9qrE5yH7+8WHClxsm0Vi5rkju7wwccSQ0zvocSset8gJ2UNCQDM/wcQZ13XnmYeG9+0RnvxSXlVdKuRXOGh00ZRzAABPD6kvvrMBIfjMxJGpuMk4P6BjC0LAHda3R5pHJYdsEYGAcS5LCCPo0uy6qwAAWcJer1JdmXjxNyvf+fc2RUI+z96pAYJhJG6OGpT1x6fPsm3GAUeNbzfc5+IoCpZVAhyWXxSZn1c8a0nRhq3VkbipykRTiUcljAHGOaBH+IlCCBpiVruwOnXC8Huu6y8RFKvXMUYnrJxCwAnYS8pBPGpec2nu6f0yHnt11azFuwlBPk1yzRNv1K8W8LBfefGd9dV1+muP/wwB6FC2P0MQQsumOZ0CHdp5SyvjqnyolVNcIsj11SAEHpUgjADn5VXJT/+99e1/bS3YEwn5lX0VX4xgUneys/x/ffk8n0dK6U5jT+h7F8cnAwTLyuOLV5fOXLR75VcV1bU6IcirkYyQxjhnjDv0qKJd3XRMk15xfrfnHhzROzc9FTNNizZ3OupEA7TXQmMYixrduwT/88bYT+YVvvH3TRu21QAAvBpxPzDne++YH7yAAffaGP6du8I54ICH/Mrb//o6kbLfe/EcxCDfbwwDQmA7rF261rtbaFdJVFUOUhCDAHAO/F4ZY8hM7vVIH39eMHPRbgjBui1VReVxTSHhoLIvjY4QtGymqeTvL5/Xo2swFrOOvuDFOWcMIAQ8moRkFI+Y85fv+Wzhri++LCmuiAMAvRpJCymuRTvKWBUhCDioi+g9soNP3T/s+ktyGeOxBp1gdOKHXwk4ge956YYDIbjm0txLxuTMWVL00ZyCLzdW1EUNCAAhSCJob4jO3VwipZQzzhGCMkGyjCHcOxVEKW+X4fngf9+2S9N++8ToAwINzgCU0KB+mbMW70YQsoMRRClPD6lIwozbEIJP5u78bHa+FlAkCaUFFca+Hz9y3W3K2D9eOP+MoR2PMuzaZ6pUBUsaoSbdvKNm1uKiWUuLvsmvMx3mVUkooLivlR99wWdvlJ6yIIB3XdP/yfuGduzgS8TMgz6X1tYA2vcqZTxqEgz/79Lcqy/quW1n/aqvKtZ9XZ1fFKmuTcWStmuSZAlnhNVwUFFknNKdkspEaWWCOizglyGEjHHHYZlp6hv/2Ny3Z9rt1/eP1enfnysEgPFBfTMONaUKAWScp4dU9yE6zjghUAspAa/sULb/cboXWyJpvz31rMvG9ojV60ekx7VBEkFenwwgKC6NL8grnvHFrtWbKxtipqoQj0fywr0DdI3N8juUNUT0If3bTZ0wfOzZOZbRXOnBFgrQvi+CAeDW8/p1D/fvm3EnB3rSSiTtlOGkdMd1CDwaURVCMLIdFokZG7fV/Gfezs8W7nLnXynljAG/V3rklZU9s4Nnjewci+6dwEIQOBbt3ys9I02NJ23yo05NzjnGsGM7D2AcIuBQVlOvAw4OyFRBCCCEkZj50uQzbr+2f/ywQfu+qEpTCVZIImbMW7bnk/k7F60qLa1MuFF6Rkg9Ykh1KD8SIRCNW36v/PT9wx66eWAgIDdrerARf1uyoRqc1C5d98wwhhhDBKFbxmKcM8qZWw+EkGAoKwQguHDFnoen5RXsiQa8sk0ZRtAwnbSgOufPl/brmbavHs45lyV88d2zl68r83vlA84MQZg07JlvXXzeqOykbpsmPXPc9D3lsf09bggBgrA+ak6dMGzKA8Pi0UO2argfQZKQqkmAse2FDf9btHvGwl1b8utsm3o1SZaRS+cxm37DdFKGM3Z09rMPjhg0oJ2esN2EOACtcj9Qcz217DgcAPZdew7cdwcAAGyHm5YFAD9/dNf5vdKvHP/5+q3VaUHVdpimkuo6/eZHvpj3/mVBn2xZFCHIGJA0MnxA+0WrSg5wgyAEDmUhv9Ipy2fbTJVxQVGkqjYlEbwfPRBCUB81p9w7ZMr4YYmo+ePxrr1XDgJeTYIyqq/T5ywt+u/cnUvXldXU66pMvBqBHnIMpuoHSRDO6yJ6106Bx+8efMuVfTGCJyY92GoA+tHD7wdPDbpxHAAwFjHapWuf/OGicZMWrNpUGfLLtsMDfnnzt7Xjn1n6r9cudLMGrhs04rT2P3aDIICWQ3M7+Lpk+UzL8QWUzTtqI3EzHFDcSwJByAGPxq2pE4ZNGT8skbBcng4IyGUJef0ys+nGb2o+W1g4a0nRt7saGAdeD8kIqez4pgP2lbQQgnf+3ylP3DOkS5dgMmZyzk+6zWq5AB3ly7qplJOV7vnsrYsvu2f2uq+rAj7Ztll6SPl0fuHU3699bvIZ8YiBELRMOqhfZuf2vuq6lLTfFDNEwLLo6f3a+fxKNGIAxheuLNmXEcQIOpQldeflX42aeMegRMz87hL83svxaATJuK42NWPhro/m5OdtqIjELY+KA98VqpzjWyCBMbIdGonpwwZkTZ0w7Pwzs22DxiI6wagFbudsZQDtnUTTnYBP/uA3519w6/8qalKqgh2Hp4XUV97b2Kd7eNyVfWINBuc8q713cP/M6QsKFeX7pA7gAEIwclAWAEBR8O7i6PL15V5NYoy7qTkIwTvPjbnl6n7xqOmmet1ylewGVpRvya/9dF7h9C8Kv90VgRD4PFJGSDlMoaqxBj0SNdLD2mOTBo8fN8DnleJRqyU4y20HILeqkExaOV2Drz/+s2snLXD9cM6BppJJ0/L69Uw7rW9GLGYigs4e3umT+YU/yFM7rEOmd/SQDkbKUn3yf+YWlFUmMtJUAGA0brZP9/z5+XMuGJPj9o1wzhkHmkKIiqMNxufz9nw8p2DpmtL6iKlpOOSX3VS1c9w7a1ybldRtx2FXXtjj6fHD+vbJ0BNmPN7SN1O1SoBcWxaPmBef023M8E7zVhSHAjKlXJZQLGnd/+zSuX+5XJaxY9LRgztmhFTLZggCDgCCIJmyLxuTk9M5YBi0ojzx/qfb/V6Zc1jboJ85pOO7z43J7ZEWrdddr9nnlQECBbsbPplb+N/5hd/srGMM+DxSerhprpwftGHE9AG5Gb8eP+SKC3owymMRvUU5y20NoH010QduHLB0bZnrsVLKA15p9eaqp15f/bunz4pFzNxu4dP7ZS5eU+r3ypxxDoAsoXGX9WaMax7p6TfXFJUlPCqOJ60JNw547qERmkIaGnSPRhRNsgxn6ZrSf87Kn7usqKI2pSnE75UhaAIvZ3+bBQGIxKygX55y79CJN58WTtNObmb5JwQQRjCVtM8fnX35ud3+/XlBKKBQyh3K04Lq2x9vHTEw69pLcwEAF/wse8HKEjeOi8at80d1GTOiE5bworzitz76mlLWIdM/bfIZl5/XPZmyAQDhDE9NVWLO7Px/zspfvanKMB3fceQAj2izbIdddk7Ok/cNHXhqeyNpxaOtbBN5a76B3B4PCC87p9u/Py/Y/39VBf/qlZUD+2X06ZV+zohOaSGVflchefjWQbJH/ja/7qZHFgIOH75t0ISbBnTK8lHKPCrZsLX60wW7Zi7alV8UIRh5PZKm4ia8cvazWawhpp/aK33KvUOvHtuDcdBabFabAghCwGyamxMKB5R9Z8w4UGRcVac//ttV/37zoj490kcMbL9kdWlKdybfPmjMqC5G0n72D2tHDsh6/N4hgwe2BwhaSXvd11V/+mjrrCVFiaStqSQc3FshpxQ0eeI0GrdCAeWp+4bef9Np6a3NZrU1gCjlfp/s9Uh1EVP6bh6eUh4OyLOWFL370db77xh2+TndZs349qJLev16/FA9aTuUvTBxZE7XICBSpDa+aGXJ32fsWLa2TDcdv1dOD6n0ONLHR8wNAgCuurDnY3cPPrVfppG09pXwwE/mqYOW+NYTYxz+cEiZMu73Si/8af2FZ2b/4vweq28b9MQ9gxWZJFO2zyPl9AhXlEQ/mVf4z9n5m7bXcA78XslNFznNsI6YYGRYNJIyhp7absq9Qy4Zk8MYiEUMjGBrX8F5koup4LhrsV6PtGZz1djb/0fwgduiCIbxpH32sE7/+f1FPo2kdEeRMFZx4a7IhzN3fDS7YOeeqCIjjyZB0GQx+Y89fcp4NG51zvJOuOm0O685xe9TEnHzgDqguIFO1qo2ACW8fmt1ImWnhdT9u8DcvbuWw74prK+pTfm6hjwa2byj7m/Tt386f2dZddKrSekhhXHQTG9VuSF6LGGpCrnnuv6TbxuUkxPUE1a8bb341LoBwghYuj1j4S6J7H2L2R1wsWwWjVuaSq67JPf1x0ZlpHuWryl9/5Ptc5YVNURNn1fKCGm0qWOrA9ydhG47DrvwZ9mP3z145JCOtum0tEL6Tx0gx+GBkDJj3s6VGyt8XsmtVBuW05Cy00Pq5NsH3X1t/5zs4PJVpb/79dIvVpXohusjK5Q1i6Pj9qDgve6OPrBv5q/uGHTVhT0xhvGoCVFrjbPapg/EGJckHE9Z5908o7A45vUQ3XASKbtze99tv+x77/X923X0L1xc9PpfNy1ZW8Yo9/skhCBrzifxMIaU8mjc7NLRf/8Np95x1SnBkJqMm4wD3HbfOmiVALkUeLzSbY9+8fGcAk3F0bjVKct365V9J906MJiuzZy78/W/bfryq0oIgN8nN5+PvM9T5hxEEmbQJ990RZ+HbhqY3TWgJ2zHZhi38UXjpBU6zhwC6A3IT/7my79N3y5JOBxUJ99++vhxpwbTtE9n57/2/qZ1X1dhggLNj84+T5kQ9H9je02+fdCgAe1s3Yk1tEF3py0AxDlQZCKpeNJzy1//47rcUzJvu6rf/eMGeEPq9Nn5r77/1botVYSgUOBYhl8bO7gNEUimHMrY2cM7T7590HmjunDK4xETtVF3p9WbMM4BxrA2Ytw/ddmazVWTbh1473X9fWnaZ7PzX31/09otlQQjn0dqbnTcICtlOLrhDO7fbtKtp115QQ9JwvGEBdtKdqdt3kCcc1kh2/Lr+vYI//eNsZJPnTO/4OU/b1i9qRJj5I7c0+ZHxzCdiG727ZF2/w0Dxl2a6wsoybhlmBT/xNBpfTcQY5xz7g9pAJMly3a99O6GpWvLEIL+E3XrmBaNJ61unQN3X9v/tl/2Tc/06AnLcfhPwddp3QC5E+Zej4QwzFtf/tpfN81fsccto4ITgo5l01jC6pzlu/mKPndd079zZ7+ZtE2bYtTm33Nq5QC5C3s0hUga+Xpbzavvb/psYaFu0qBPdqfWmxkdaNksnrTaZ3hvvLz33dee0i0nbOm2YToCnVYAkLvfTvXKJSXRNz/Y8vfPtjdEzaBfRgg219urP0Yn3XPdJbl3XXNKbq90x7BThoMRhIKdFg4QZRxB6PXLDfX6Xz755q1/fV1cHg/4ZEJQ86ODLJvGk1a779Dp3SvNMWlKd9y3DQQ0LRogxjlnwO+TbId9PKfgtfe/+jq/zuuRVRlT1ozvz0MIMYKm5SRSTodMz7WX5N5xdT8XHV13oECn5QPkujseVSIKXrGm7MU/rV+0qkSWsFcjx7bhFRx9NhkC3aApw87O8l93Sa/br+rXo0eYmjQl0GkteSBKOSHIG1R37Yq88t7Gf83KtywaCiju1nrQbDUsAEBSd0yL5uaEbry897jLemdnBxyDxiMGRPCnHJ+3mhvI3bbr9yuxmPnOx1t//+GW8qpEKKAgCJspyHLbzRjjiZTNORjUN/OmK/pcdWGPdu19tm4bJhW3TqsByKHMo0pERnMWF039w9oN26r9XlmRcDP16yAEEQSmzRIp26OSM4d0vPnKvheNzvYFFTNlmxYVEVZrAgghqPrknYUNL7697uM5BRACn0duDk/ZvXI4A0nDtizasb3v52d2vf6y3qMGZWEJ6ynLcThCgpzWAxDnACFgWuyD/+34zXtfVdQkQ37F3Y3SHA6yZbNkypYlNLBv5lVje/7i3O7dcoKAsmTKZgwgLMhpbQBRyv1h9Z0Pttzzq4XpHXwIN3FiECGIoLvpx3Yc3qGd97wzOl97ca/Rgzt6/LJtOIZB3WtJENAqozCEoJm0Lzqza//T2heVxTRMmsROuavEKOVJ3TYtGvTJZw3tdPm53caO7to9Jwg4SKVsdxpLhFet3geijPv98vI1ZZffN8d9TdJx2LElAN3nuhyH6Sa1ber3yKfkpp0/qsvFZ+Wc1idD0ohjOLpJ98XtQm3EiaaU+wPyvGV7bn9iUXWdHgooEALOjvCij7tK0YWGUm7Z1LQo5yAtpJ7SI+3sEZ0uGJU9oE+6xydzm6V0hzKOERAectsM4ynl/oCyLb/u6TfWzF1eZNlMkbEiY4wO8pSgu+2Ace443LQcxoHfK3XJ8p/WJ/2sYZ1GDMzq1TWoeGRg05ThOJQj4eX8FBKJlHKPh0AAl6wpnb6gcNWmquKyWCxpuxst938/Q5aRKhNFRukhdWCfzFGDO5x+SmavrqG0sAowpCY1LUopF97xT64W5rLi9coAwWjE2LknWlgcKdgTtWxGMNRU4vNIQb8cDqgBnxwKKFkZWlpIAwQBmxoWdRzGORDp4596MZW6b4USpMgYSujAkU93FJ5yyrjtMMdhjAP0XeQlJJrq94ZIlPGkbvPUwSeH4d5/IUIQidMTAB0qnSMOprVI/IyFBEBCAiAhAZCQAEhISAAkJAASEgAJCYCEhARAQgIgIQGQkABISEgAJCQAEhIACQmAhIQEQEICICEBkJAASEgAJCQkABISAAkJgIQEQEJCAiAhAZCQAEhIACQkJAASEgAJCYCEBEBCQgIgIQGQkABISAAkJAASEjpm/T+cie0LuO/lcwAAAABJRU5ErkJggg==" alt="">
+
+<main>
+  <div class="wrap">
+    <button class="dir" id="dirBtn">里府語 → 漢語</button>
+    <div class="bar">
+      <input id="q" type="text" autocomplete="off" spellcheck="false">
+      <button class="go" id="go">翻譯</button>
+    </div>
+  </div>
+  <div class="out" id="out"></div>
+
+  <div class="fb" id="fb">
+    <button class="fb-link" id="fbLink">反饋</button>
+    <div class="fb-form" id="fbForm">
+      <input id="fbInput" type="text" placeholder="正確譯文" autocomplete="off">
+      <button class="fb-send" id="fbSend">提交</button>
+    </div>
+  </div>
+</main>
+
+<button class="dict-link" id="dictLink">詞庫</button>
+
+<div class="panel" id="dictPanel">
+  <textarea id="dictText" spellcheck="false"></textarea>
+  <div class="panel-actions">
+    <span class="panel-note" id="dictNote"></span>
+    <button class="panel-btn" id="dictCancel">取消</button>
+    <button class="panel-btn primary" id="dictSave">保存</button>
+  </div>
+</div>
+
+<!-- 雲服務 SDK：本地文件優先，避免 CDN 不可達導致整頁失效 -->
+<!-- 雲服務 SDK：直接內聯，避免資源未上傳導致整頁失效 -->
+<script>
+var WorkBuddyCloud=(()=>{var ie=Object.defineProperty;var _t=Object.getOwnPropertyDescriptor;var Tt=Object.getOwnPropertyNames;var Ot=Object.prototype.hasOwnProperty;var a=(r,e)=>ie(r,"name",{value:e,configurable:!0});var At=(r,e)=>{for(var t in e)ie(r,t,{get:e[t],enumerable:!0})},Rt=(r,e,t,s)=>{if(e&&typeof e=="object"||typeof e=="function")for(let n of Tt(e))!Ot.call(r,n)&&n!==t&&ie(r,n,{get:()=>e[n],enumerable:!(s=_t(e,n))||s.enumerable});return r};var $t=r=>Rt(ie({},"__esModule",{value:!0}),r);var nr={};At(nr,{AuthModule:()=>D,CLOUD_MODULE_PATHS:()=>R,CLOUD_PATH_PREFIX:()=>j,CloudOpenAIError:()=>x,CloudStoragePathError:()=>w,DEFAULT_SIGNED_URL_TTL_SECONDS:()=>ge,LlmModule:()=>M,MAX_SIGNED_URL_TTL_SECONDS:()=>ye,PUBLISHABLE_KEY_HEADER:()=>be,RUNTIME_STORAGE_BUCKET:()=>W,WorkBuddyCloudClient:()=>se,WorkBuddyCloudConfigError:()=>T,WorkBuddyDatabaseModule:()=>J,WorkBuddyStorageBucket:()=>H,WorkBuddyStorageDownload:()=>te,WorkBuddyStorageModule:()=>re,anonymousTokenProvider:()=>oe,createMemoryStorage:()=>ke,createWorkBuddyCloud:()=>vt,getModelCapability:()=>Oe,getModelDisplayName:()=>Te,shouldClearCredentials:()=>Pt});var T=class extends Error{static{a(this,"WorkBuddyCloudConfigError")}constructor(e){super(e),this.name="WorkBuddyCloudConfigError"}};var Ut=/^wbpk_/;function Le(r,e){if(typeof r!="string"||r.trim()==="")throw new T(`${e} is required and must be a non-empty string.`);let t=r.trim(),s;try{s=new URL(t)}catch{throw new T(`${e} must be an absolute URL, received: ${t}`)}if(s.protocol!=="https:"&&s.protocol!=="http:")throw new T(`${e} must use http(s), received protocol: ${s.protocol}`);return t.replace(/\/+$/,"")}a(Le,"normalizeHttpUrl");function It(r){if(r!=null&&r!=="")return Le(r,"endpoint");let e=globalThis.location?.origin;if(typeof e!="string"||e==="")throw new T("endpoint is required outside browsers (no location.origin to fall back to).");return e.replace(/\/+$/,"")}a(It,"resolveEndpoint");function Ct(r){if(typeof r!="string"||r.trim()==="")throw new T("publishableKey is required and must be a non-empty string.");let e=r.trim();if(!Ut.test(e))throw new T('publishableKey must start with "wbpk_".');return e}a(Ct,"normalizePublishableKey");function Lt(r){if(r)return r;if(typeof globalThis.fetch!="function")throw new T("Global fetch is unavailable in this runtime; pass options.fetch explicitly.");return globalThis.fetch.bind(globalThis)}a(Lt,"resolveFetch");function je(r){if(!r||typeof r!="object")throw new T("createWorkBuddyCloud requires publishableKey.");return Object.freeze({endpoint:It(r.endpoint),oauthRelayBaseUrl:r.oauthRelayBaseUrl?Le(r.oauthRelayBaseUrl,"oauthRelayBaseUrl"):"",publishableKey:Ct(r.publishableKey),fetch:Lt(r.fetch)})}a(je,"resolveRuntimeConfig");var be="x-wb-webapp-access-key";function we(r,e){return async(t,s)=>{let n=new Headers(s?.headers);if(n.set(be,r.publishableKey),!n.has("Authorization")){let i=await e();i&&n.set("Authorization",`Bearer ${i}`)}return r.fetch(t,{...s,headers:n})}}a(we,"createCloudFetch");var oe=a(()=>Promise.resolve(void 0),"anonymousTokenProvider");var j="/.cloud",R=Object.freeze({auth:`${j}/auth`,database:`${j}/database/rest`,storage:`${j}/storage`,llm:`${j}/llm`});var jt="workbuddy-cloud.pkce.workbuddy.",Bt="workbuddy-cloud.pkce-done.workbuddy.";function Be(r){let e="";for(let t of r)e+=String.fromCharCode(t);return btoa(e).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}a(Be,"base64UrlEncode");function De(){let r=globalThis.crypto;return typeof r?.getRandomValues=="function"&&typeof r?.subtle?.digest=="function"&&typeof globalThis.btoa=="function"}a(De,"hasWebCrypto");function Ne(){let r=new Uint8Array(32);return globalThis.crypto.getRandomValues(r),Be(r)}a(Ne,"createCodeVerifier");async function Me(r){let e=new TextEncoder().encode(r),t=await globalThis.crypto.subtle.digest("SHA-256",e);return Be(new Uint8Array(t))}a(Me,"computeS256Challenge");var ae=class{static{a(this,"WorkBuddyPkceStore")}verifierKey;consumedKey;constructor(e){this.verifierKey=jt+e,this.consumedKey=Bt+e}usable(){let e=this.storage();if(!e)return!1;try{let t=`${this.verifierKey}.probe`;return e.setItem(t,"1"),e.removeItem(t),!0}catch{return!1}}saveVerifier(e){try{let t=this.storage();return t?(t.setItem(this.verifierKey,e),t.removeItem(this.consumedKey),!0):!1}catch{return!1}}readVerifier(){try{return this.storage()?.getItem(this.verifierKey)??null}catch{return null}}clearVerifier(){try{this.storage()?.removeItem(this.verifierKey)}catch{}}markConsumed(e){try{this.storage()?.setItem(this.consumedKey,e)}catch{}}isConsumed(e){try{return!!e&&this.storage()?.getItem(this.consumedKey)===e}catch{return!1}}storage(){try{return globalThis.sessionStorage??null}catch{return null}}};var b={signUp:"/v1/signup",signIn:"/v1/signin",signInWithProvider:"/v1/signin/with/provider",token:"/v1/token",loginWechat:"/v1/login-wechat",loginWechatWeb:"/v1/login-wechat-web",loginWorkBuddy:"/v1/login-workbuddy",loginWorkBuddyMiniProgram:"/v1/login-workbuddy-miniprogram",signOut:"/v1/user/signout",userMe:"/v1/user/me",verification:"/v1/verification",verificationVerify:"/v1/verification/verify",resetPassword:"/v1/reset",sudo:"/v1/user/sudo",userPassword:"/v1/user/password"};function Se(r,e){let t=r??{},s=typeof t.access_token=="string"?t.access_token:"";if(!s)throw Mt("response has no access_token");let n=typeof t.refresh_token=="string"?t.refresh_token:"",i=typeof t.expires_in=="number"?t.expires_in:0;return{accessToken:s,refreshToken:n,expiresAt:e+i*1e3,user:Dt(t)}}a(Se,"parseSession");function Dt(r){let e=r.is_anonymous===!0;return{id:typeof r.sub=="string"?r.sub:"",name:O(r.name),avatarUrl:O(r.avatar_url),isAnonymous:e,raw:r}}a(Dt,"userFromSessionPayload");function Fe(r){let e=r??{},t=typeof e.sub=="string"?e.sub:typeof e.uid=="string"?e.uid:"",s=e.user_metadata??{};return{id:t,email:O(e.email)??O(s.email),phone:O(e.phone_number)??O(e.phone),name:O(e.name),avatarUrl:O(e.avatar_url),isAnonymous:e.is_anonymous===!0||e.scope==="anonymous",raw:e}}a(Fe,"parseUser");function O(r){return typeof r=="string"&&r!==""?r:void 0}a(O,"pickString");function qe(r,e){let t=e??{},s=typeof t.error=="string"?t.error:void 0,n=O(t.error_description)??O(t.message)??O(t.msg)??`HTTP ${r}`;return{kind:Nt(r,s),message:n,status:r,code:s,cause:e}}a(qe,"normalizeHttpError");function Nt(r,e){if(e==="invalid_grant")return"unauthenticated";switch(r){case 400:return"invalid-request";case 401:return"unauthenticated";case 403:return"permission-denied";case 404:return"not-found";case 429:return"rate-limited";case 501:return"unimplemented";case 503:return"backend-unavailable";default:return r>=500?"backend-unavailable":"unknown"}}a(Nt,"errorKind");function K(r){return{kind:"network",message:`request failed before a response was received: ${r instanceof Error?r.message:String(r)}`,status:0,cause:r}}a(K,"normalizeNetworkError");function Mt(r){let e=new Error(`workbuddy-cloud auth: ${r}`);return e.kind="unknown",e.status=0,e}a(Mt,"sessionShapeError");var ce=class{static{a(this,"SessionManager")}store;refresh;emit;isCredentialsRejected;now;inflight=null;signOutEpoch=0;lastFailure=null;constructor(e){this.store=e.store,this.refresh=e.refresh,this.emit=e.emit,this.isCredentialsRejected=e.isCredentialsRejected,this.now=e.now??Date.now}peek(){return this.store.read()}async ensure(){let e=this.store.read();return e?this.isExpiring(e)?e.refreshToken?this.refreshOnce(e):this.abandon():e:null}async forceRefresh(){let e=this.store.read();return e?.refreshToken?this.refreshOnce(e,{ignoreCooldown:!0}):null}commitSignIn(e){return this.lastFailure=null,this.store.write(e),this.emit("SIGNED_IN",e),e}commitUserUpdate(e){return this.store.write(e),this.emit("USER_UPDATED",e),e}clear(){this.signOutEpoch+=1,this.lastFailure=null,this.inflight=null,this.store.clear(),this.emit("SIGNED_OUT",null)}isExpiring(e){return typeof e.expiresAt!="number"?!0:e.expiresAt-this.now()<9e4}refreshOnce(e,t={}){if(this.inflight)return this.inflight;if(!t.ignoreCooldown&&this.inCooldown(e.refreshToken))return Promise.resolve(null);let s=this.doRefresh(e).finally(()=>{this.inflight=null});return this.inflight=s,s}inCooldown(e){let t=this.lastFailure;return t!==null&&t.token===e&&this.now()-t.at<6e4}async doRefresh(e){let t=this.signOutEpoch,s=e.refreshToken,n;try{n=await this.refresh(s)}catch(o){return this.onRefreshFailed(s,o)}if(this.signOutEpoch!==t)return this.store.clear(),null;let i=this.store.read();return i&&i.refreshToken!==s?i:(this.lastFailure=null,this.store.write(n),this.emit("TOKEN_REFRESHED",n),n)}onRefreshFailed(e,t){return this.isCredentialsRejected(t)?this.abandon():(this.lastFailure={token:e,at:this.now()},null)}abandon(){return this.store.clear(),this.lastFailure=null,this.emit("SIGNED_OUT",null),null}};var Ft="workbuddy-cloud.session.";function ke(){let r=new Map;return{getItem:a(e=>r.get(e)??null,"getItem"),setItem:a((e,t)=>{r.set(e,t)},"setItem"),removeItem:a(e=>{r.delete(e)},"removeItem")}}a(ke,"createMemoryStorage");function We(r){if(r)return r;try{let e="__workbuddy_probe__";return globalThis.localStorage.setItem(e,"1"),globalThis.localStorage.removeItem(e),globalThis.localStorage}catch{return ke()}}a(We,"resolveStorage");var ue=class{static{a(this,"SessionStore")}storage;key;constructor(e,t){this.storage=e,this.key=Ft+t}read(){let e;try{e=this.storage.getItem(this.key)}catch{return null}if(!e)return null;try{let t=JSON.parse(e);return qt(t)?t:this.discard()}catch{return this.discard()}}write(e){try{this.storage.setItem(this.key,JSON.stringify(e))}catch{}}clear(){try{this.storage.removeItem(this.key)}catch{}}discard(){return this.clear(),null}};function qt(r){if(!r||typeof r!="object")return!1;let e=r;return typeof e.accessToken=="string"&&e.accessToken!==""&&typeof e.refreshToken=="string"&&typeof e.expiresAt=="number"&&!!e.user&&typeof e.user=="object"}a(qt,"isStoredSession");function B(r,e){let t=r.email??"",s=r.phone??"";return!!t==!!s?{data:null,error:{kind:"invalid-request",message:`${e} requires exactly one of email or phone`,status:0}}:{data:t?{kind:"email",value:t,username:t}:{kind:"phone",value:s,username:Wt(s)},error:null}}a(B,"resolveAuthIdentifier");function Wt(r){let t=r.replace(/\D/g,"");return t.startsWith("0086")?t=t.slice(4):t.startsWith("86")&&t.length===13&&(t=t.slice(2)),/^1\d{10}$/.test(t)?`+86 ${t}`:r}a(Wt,"normalizePhone");var He="wx907c65e5e107ddcf",Ht="subpackages/secondary/oauth-authorize/index";var de=class{static{a(this,"WorkBuddyMiniProgramAuth")}storage;platform;exchange;key;starting;exchanges=new Map;constructor(e,t,s,n){this.storage=t,this.platform=s,this.exchange=n,this.key=`workbuddy-cloud.miniprogram-workbuddy.${e}`}async signIn(e){if(this.starting)return this.starting;let t=this.start(e);this.starting=t;try{return await t}finally{this.starting=void 0}}async start(e){if(typeof e?.redirectPath!="string"||!e.redirectPath.trim())return P("invalid_request","WorkBuddy login requires redirectPath");let t=this.platform.applicationId;if(typeof t!="string"||!t.trim())return P("invalid_request","WorkBuddy login requires publicConfig.workBuddyOAuthClientId");try{let s=this.platform.getEnvVersion?.(),n=await this.platform.createState(),i={state:n,appId:He,expiresAt:Date.now()+6e5},o=JSON.stringify(i);if(this.storage.setItem(this.key,o),this.storage.getItem(this.key)!==o)return P("storage_unavailable","Could not persist WorkBuddy login; sign in again");let c=await this.platform.navigate({appId:He,path:`${Ht}?client_id=${encodeURIComponent(t)}&redirect_uri=${encodeURIComponent(e.redirectPath)}&state=${encodeURIComponent(n)}`+(s?`&envVersion=${s}`:""),envVersion:"release"});return c.error&&this.storage.removeItem(this.key),c}catch(s){return P("miniprogram_login_failed",xe(s))}}async handleCallback(e){let t=e?.referrerInfo,s=Ke(t?.extraData);if(!s||!s.code&&!s.error)return{data:null,error:null};let n=typeof s.state=="string"?this.exchanges.get(s.state):void 0;if(n)return t?.appId===n.appId?n.task:P("invalid_request","WorkBuddy callback does not match the login source");let i;try{i=this.readPending()}catch(c){return P("storage_unavailable",xe(c))}if(!i)return{data:null,error:null};if(typeof s.state!="string"||!s.state)return P("invalid_request","WorkBuddy callback requires state");if(t?.appId!==i.appId||s.state!==i.state)return P("invalid_request","WorkBuddy callback does not match the login source or state");if(!(typeof s.code=="string"&&s.code)&&!(typeof s.error=="string"&&s.error))return P("invalid_request","WorkBuddy callback has no authorization code");if(!s.error&&(typeof s.redirect_uri!="string"||!s.redirect_uri.trim()))return P("invalid_request","WorkBuddy callback requires redirect_uri");try{if(this.storage.removeItem(this.key),this.storage.getItem(this.key)!==null)return P("storage_unavailable","Could not consume WorkBuddy login; sign in again")}catch(c){return P("storage_unavailable",xe(c))}if(i.expiresAt<=Date.now())return P("invalid_grant","WorkBuddy login expired; sign in again","unauthenticated");if(s.error)return P(String(s.error),typeof s.error_description=="string"?s.error_description:"WorkBuddy authorization was not completed","permission-denied");let o=this.exchange({code:s.code,state:i.state,shortlink:s.redirect_uri});this.exchanges.set(i.state,{appId:i.appId,task:o});try{return await o}finally{this.exchanges.delete(i.state)}}readPending(){let e=this.storage.getItem(this.key);if(!e)return null;let t=Ke(JSON.parse(e));if(!t||typeof t.state!="string"||typeof t.appId!="string"||typeof t.expiresAt!="number")throw new Error("Invalid saved WorkBuddy login; sign in again");return t}};function Ke(r){return r!==null&&typeof r=="object"&&!Array.isArray(r)?r:null}a(Ke,"record");function P(r,e,t="invalid-request"){return{data:null,error:{kind:t,code:r,message:e,status:0}}}a(P,"failure");function xe(r){return r instanceof Error?r.message:String(r)}a(xe,"describe");var Ge=200;function Je(r,e){let t=Array.from(r);return t.length<=e?r:`${t.slice(0,e).join("")}\u2026`}a(Je,"truncateMessage");function Ee(r){let e=r.get("error");if(!e)return null;let t=r.get("error_description"),s=t?`oauth provider rejected the request: ${e}: ${t}`:`oauth provider rejected the request: ${e}`;return Je(s,Ge)}a(Ee,"oauthProviderRejectMessage");var D=class{static{a(this,"AuthModule")}fetch;baseUrl;sessions;storage;oauthRelayBaseUrl;workBuddyPkce;workBuddyMiniProgram;workBuddyExchanges=new Map;listeners=new Map;nextListenerId=1;constructor(e,t,s={}){this.fetch=t,this.baseUrl=`${e.endpoint}${R.auth}`,this.oauthRelayBaseUrl=e.oauthRelayBaseUrl,this.storage=We(s.storage),this.workBuddyPkce=new ae(e.publishableKey),this.sessions=new ce({store:new ue(this.storage,e.publishableKey),refresh:a(n=>this.exchangeRefreshHandle(n),"refresh"),emit:a((n,i)=>this.notify(n,i),"emit"),isCredentialsRejected:a(n=>le(n)&&Ve(n),"isCredentialsRejected")}),s.workBuddyMiniProgram&&(this.workBuddyMiniProgram=new de(e.publishableKey,this.storage,s.workBuddyMiniProgram,n=>this.postForSession(b.loginWorkBuddyMiniProgram,n)))}async getAccessToken(){return(await this.sessions.ensure())?.accessToken}async signInWithWorkBuddyMiniProgram(e){return this.workBuddyMiniProgram?this.workBuddyMiniProgram.signIn(e):h({kind:"unimplemented",status:0,message:"Use createMiniProgramWorkBuddyCloud for WorkBuddy mini program login"})}async handleWorkBuddyMiniProgramCallback(e){return this.workBuddyMiniProgram?this.workBuddyMiniProgram.handleCallback(e):h({kind:"unimplemented",status:0,message:"Use createMiniProgramWorkBuddyCloud for WorkBuddy mini program login"})}async signInWithPassword(e){if(!e.password)return h(p("signInWithPassword requires a password"));let t=B(e,"signInWithPassword");return t.error?h(t.error):this.postForSession(b.signIn,{username:t.data.username,password:e.password})}async signInWithWechat(e,t){return e?t?this.postForSession(b.loginWechat,{code:e,appid:t}):h(p("signInWithWechat requires appid")):h(p("signInWithWechat requires code"))}async signUp(e){let t=B(e,"signUp");if(t.error)return h(t.error);if(!e.verificationToken)return h(p("signUp requires a verificationToken; run sendOtp + verifyOtp first (the provider rejects username+password-only signup)"));let s={verification_token:e.verificationToken};return t.data.kind==="phone"?s.phone_number=t.data.username:s.email=t.data.username,e.password&&(s.password=e.password),this.postForSession(b.signUp,s)}async sendOtp(e){let t=B(e,"sendOtp");if(t.error)return h(t.error);let s={};t.data.kind==="phone"?(s.phone_number=t.data.username,s.target="ANY"):(s.email=t.data.username,s.usage="email",e.emailRedirectTo&&(s.email_redirect_to=e.emailRedirectTo));let n=await this.request(b.verification,{method:"POST",body:s});if(n.error)return h(n.error);let i=n.data??{},o=typeof i.verification_id=="string"?i.verification_id:"";return o?S({verificationId:o,isExistingUser:i.is_user===!0}):h(p("provider returned no verification_id"))}async signInWithOtp(e){let t=B(e,"signInWithOtp");if(t.error)return h(t.error);let s=await this.sendOtp(e);if(s.error)return h(s.error);let{verificationId:n,isExistingUser:i}=s.data,o=t.data.kind==="phone"?{phone:t.data.username}:{email:t.data.username};return S({verificationId:n,isExistingUser:i,isUser:i,verify:a(({token:c,password:u})=>this.verifyOtp({verificationId:n,token:c,...o,isExistingUser:i,password:u}),"verify")})}async verifyOtp(e){let t=B(e,"verifyOtp");if(t.error)return h(t.error);if(!e.verificationId||!e.token)return h(p("verifyOtp requires verificationId and token"));let s=await this.request(b.verificationVerify,{method:"POST",body:{verification_id:e.verificationId,verification_code:e.token}});if(s.error)return h(s.error);let n=s.data??{},i=typeof n.verification_token=="string"?n.verification_token:"";if(!i)return h(p("provider returned no verification_token"));if(e.isExistingUser)return this.postForSession(b.signIn,{username:t.data.username,verification_token:i});let o=t.data.kind==="phone"?{phone:t.data.value,password:e.password}:{email:t.data.value,password:e.password};return this.signUp({...o,verificationToken:i})}async signInWithOAuth(e){if(!this.oauthRelayBaseUrl)return h(p("signInWithOAuth requires oauthRelayBaseUrl"));if(e.provider!=="google"&&e.provider!=="wechat"&&e.provider!=="workbuddy")return h(p("\u5F53\u524D SDK \u4E0D\u652F\u6301\u8BE5\u767B\u5F55\u65B9\u5F0F\uFF0C\u8BF7\u68C0\u67E5 SDK \u7248\u672C\u4E0E\u767B\u5F55\u914D\u7F6E\u3002"));let t=e.redirectTo??zt();return t?this.startRelayOAuth(e,t):h(p("signInWithOAuth requires redirectTo outside a browser environment"))}parseCallbackQuery(e){try{let t=/^https?:\/\//i.test(e)?new URL(e).search:e;return S(new URLSearchParams(t))}catch{return h(p("oauth callback URL is invalid"))}}async handleOAuthCallback(e){let t=this.parseCallbackQuery(e??ve());if(t.error||!t.data)return h(t.error??p("oauth callback URL is invalid"));let s=t.data,n=Ee(s);if(n)return h({kind:"unauthenticated",message:n,status:0});let i=s.get("code");if(!i)return S(null);let o=s.get("state")??"";if(!o)return h(p("oauth callback requires state"));let c=s.get("provider_id");if(c!=="custom-oauth")return h(p("oauth callback requires provider_id=custom-oauth"));let u={provider_id:c,provider_code:i,state:o,provider_params:{state:o}};return this.postForSession(b.signInWithProvider,u)}async handleWechatWebCallback(e){let t=this.parseCallbackQuery(e??ve());if(t.error||!t.data)return h(t.error??p("oauth callback URL is invalid"));let s=t.data,n=Ee(s);if(n)return h({kind:"unauthenticated",message:n,status:0});let i=s.get("code");if(!i)return S(null);let o=s.get("state")??"";if(!o)return h(p("oauth callback requires state"));let c=s.get("provider");return c&&c!=="wechat"?h(p("wechat callback requires provider=wechat")):s.get("provider_id")==="custom-oauth"?h(p("wechat callback must not use provider_id=custom-oauth")):this.postForSession(b.loginWechatWeb,{code:i,state:o})}async handleWorkBuddyCallback(e){let t=this.parseCallbackQuery(e??ve());if(t.error||!t.data)return h(t.error??p("oauth callback URL is invalid"));let s=t.data,n=s.get("provider");if(n&&n!=="workbuddy")return S(null);let i=Ee(s);if(i)return this.workBuddyPkce.clearVerifier(),h({kind:"unauthenticated",message:i,status:0});let o=s.get("code");if(!o)return S(null);let c=s.get("state")??"";if(!c)return h(p("workbuddy callback requires state"));if(s.get("provider_id")==="custom-oauth")return h(p("workbuddy callback must not use provider_id=custom-oauth"));if(this.workBuddyPkce.isConsumed(c))return S(null);let u=this.workBuddyExchanges.get(c);if(u)return u;let d=this.workBuddyPkce.readVerifier();if(!d)return h(p("workbuddy callback has no local PKCE verifier; sign in again in this tab"));this.workBuddyPkce.clearVerifier();let l=this.exchangeWorkBuddyCode(o,c,d);this.workBuddyExchanges.set(c,l);try{return await l}finally{this.workBuddyExchanges.delete(c)}}async exchangeWorkBuddyCode(e,t,s){let n=await this.postForSession(b.loginWorkBuddy,{code:e,state:t,code_verifier:s});return n.data&&this.workBuddyPkce.markConsumed(t),n}async resetPasswordForEmail(e){if(!e)return h(p("resetPasswordForEmail requires email"));let t=await this.request(b.verification,{method:"POST",body:{email:e,usage:"PASSWORD_RESET",target:"USER"}});if(t.error)return h(t.error);let s=t.data??{},n=typeof s.verification_id=="string"?s.verification_id:"";return n?S({updateUser:a(async({nonce:i,password:o})=>{let c=await this.request(b.verificationVerify,{method:"POST",body:{verification_id:n,verification_code:i}});if(c.error)return h(c.error);let u=c.data??{},d=typeof u.verification_token=="string"?u.verification_token:"";if(!d)return h(p("provider returned no verification_token"));let l=await this.request(b.resetPassword,{method:"POST",body:{email:e,new_password:o,verification_token:d}});if(l.error)return h(l.error);let f=await this.signInWithPassword({email:e,password:o});return f.error||this.notify("PASSWORD_RECOVERY",f.data),f},"updateUser")}):h(p("provider returned no verification_id"))}async resetPasswordForOld(e){let t=await this.getAccessToken();if(!t)return h({kind:"unauthenticated",message:"no active session",status:0});let s=await this.request(b.sudo,{method:"POST",token:t,body:{password:e.oldPassword}});if(s.error)return h(s.error);let n=s.data??{},i=typeof n.sudo_token=="string"?n.sudo_token:"";if(!i)return h(p("provider returned no sudo_token"));let o=await this.request(b.userPassword,{method:"PATCH",token:t,body:{sudo_token:i,new_password:e.newPassword}});if(o.error)return h(o.error);let c=await this.getSession();return c.data?(this.notify("USER_UPDATED",c.data),S(c.data)):h(c.error??{kind:"unauthenticated",message:"no active session",status:0})}async getSession(){try{return S(await this.sessions.ensure())}catch(e){return h(le(e)?e:K(e))}}async refreshSession(){try{return S(await this.sessions.forceRefresh())}catch(e){return h(le(e)?e:K(e))}}async getUser(){let e=await this.getAccessToken();if(!e)return h({kind:"unauthenticated",message:"no active session",status:0});let t=await this.request(b.userMe,{method:"GET",token:e});return t.error?(Ve(t.error)&&this.sessions.clear(),h(t.error)):S(Fe(t.data))}async signOut(){let e=this.sessions.peek();return e?.accessToken&&await this.request(b.signOut,{method:"POST",body:{},token:e.accessToken}),this.sessions.clear(),S(null)}onAuthStateChange(e){let t=this.nextListenerId++;return this.listeners.set(t,e),ze(e,"INITIAL_SESSION",this.sessions.peek()),()=>{this.listeners.delete(t)}}async startRelayOAuth(e,t){let s;try{s=new URL(t)}catch{return h(p("signInWithOAuth requires an absolute redirectTo URL"))}let n=new URL(`${this.oauthRelayBaseUrl}/authorize`);if(n.searchParams.set("provider",e.provider),n.searchParams.set("callback_url",s.toString()),e.provider==="workbuddy"){let i=await this.createWorkBuddyProof();if(i.error||!i.data)return h(i.error??p("signInWithOAuth could not create PKCE"));n.searchParams.set("code_challenge",i.data),n.searchParams.set("code_challenge_method","S256")}return S({url:n.toString()})}async createWorkBuddyProof(){if(!De())return h(p("workbuddy sign-in requires WebCrypto; it is unavailable in this runtime (an insecure http:// origin disables it \u2014 serve the app over https)"));if(!this.workBuddyPkce.usable())return h(p("workbuddy sign-in requires sessionStorage to keep the PKCE verifier across the redirect; it is unavailable in this runtime"));let e,t;try{e=Ne(),t=await Me(e)}catch(s){return h(p(`workbuddy sign-in could not create a PKCE proof: ${Kt(s)}`))}return this.workBuddyPkce.saveVerifier(e)?S(t):h(p("workbuddy sign-in could not persist the PKCE verifier"))}async exchangeRefreshHandle(e){let t=await this.request(b.token,{method:"POST",body:{grant_type:"refresh_token",refresh_token:e}});if(t.error)throw t.error;return Se(t.data,Date.now())}async postForSession(e,t,s={}){let n=await this.request(e,{method:"POST",body:t,headers:s.headers});if(n.error)return h(n.error);try{return S(this.sessions.commitSignIn(Se(n.data,Date.now())))}catch(i){return h(le(i)?i:K(i))}}async request(e,t){let s={...t.headers};t.body!==void 0&&(s["Content-Type"]="application/json"),t.token&&(s.Authorization=`Bearer ${t.token}`);let n;try{n=await this.fetch(this.baseUrl+e,{method:t.method,headers:s,body:t.body===void 0?void 0:JSON.stringify(t.body)})}catch(o){return h(K(o))}let i=await Vt(n);return n.ok?S(i):h(qe(n.status,i))}notify(e,t){for(let s of this.listeners.values())ze(s,e,t)}};function S(r){return{data:r,error:null}}a(S,"ok");function h(r){return{data:null,error:r}}a(h,"fail");function p(r){return{kind:"invalid-request",message:r,status:0}}a(p,"badRequest");function Kt(r){return Je(r instanceof Error?r.message:String(r),Ge)}a(Kt,"describeError");function le(r){return!!r&&typeof r=="object"&&typeof r.kind=="string"}a(le,"isCloudError");function Ve(r){return r.kind==="unauthenticated"||r.code==="invalid_grant"}a(Ve,"rejectedCredentials");async function Vt(r){let e=await r.text();if(!e)return null;try{return JSON.parse(e)}catch{return{message:e}}}a(Vt,"readBody");function ze(r,e,t){try{r(e,t)}catch{}}a(ze,"safeInvoke");function zt(){let r=globalThis.location;return r?r.origin+r.pathname:""}a(zt,"currentPageUrl");function ve(){return globalThis.location?.search??""}a(ve,"currentPageSearch");var Pe=a(r=>Math.min(1e3*2**r,3e4),"getRetryDelay"),Ye=[520,503],_e=["GET","HEAD","OPTIONS"];var I=class extends Error{static{a(this,"PostgrestError")}details;hint;code;constructor(e){super(e.message),this.name="PostgrestError",this.details=e.details,this.hint=e.hint,this.code=e.code}toJSON(){return{name:this.name,message:this.message,details:this.details,hint:this.hint,code:this.code}}};function Xe(r,e){return new Promise(t=>{if(e?.aborted){t();return}let s=setTimeout(()=>{e?.removeEventListener("abort",n),t()},r);function n(){clearTimeout(s),t()}a(n,"onAbort"),e?.addEventListener("abort",n)})}a(Xe,"sleep");function Gt(r,e,t,s){return!(!s||t>=3||!_e.includes(r)||!Ye.includes(e))}a(Gt,"shouldRetry");var V=class{static{a(this,"PostgrestBuilder")}method;url;headers;schema;body;shouldThrowOnError=!1;signal;fetch;isMaybeSingle;shouldStripNulls;urlLengthLimit;retryEnabled=!0;constructor(e){this.method=e.method,this.url=e.url,this.headers=new Headers(e.headers),this.schema=e.schema,this.body=e.body,this.shouldThrowOnError=e.shouldThrowOnError??!1,this.signal=e.signal,this.isMaybeSingle=e.isMaybeSingle??!1,this.shouldStripNulls=e.shouldStripNulls??!1,this.urlLengthLimit=e.urlLengthLimit??8e3,this.retryEnabled=e.retry??!0,e.fetch?this.fetch=e.fetch:this.fetch=fetch}throwOnError(){return this.shouldThrowOnError=!0,this}stripNulls(){if(this.headers.get("Accept")==="text/csv")throw new Error("stripNulls() cannot be used with csv()");return this.shouldStripNulls=!0,this}setHeader(e,t){return this.headers=new Headers(this.headers),this.headers.set(e,t),this}retry(e){return this.retryEnabled=e,this}then(e,t){if(this.schema===void 0||(["GET","HEAD"].includes(this.method)?this.headers.set("Accept-Profile",this.schema):this.headers.set("Content-Profile",this.schema)),this.method!=="GET"&&this.method!=="HEAD"&&this.headers.set("Content-Type","application/json"),this.shouldStripNulls){let o=this.headers.get("Accept");o==="application/vnd.pgrst.object+json"?this.headers.set("Accept","application/vnd.pgrst.object+json;nulls=stripped"):(!o||o==="application/json")&&this.headers.set("Accept","application/vnd.pgrst.array+json;nulls=stripped")}let s=this.fetch,i=a(async()=>{let o=0;for(;;){let c={};this.headers.forEach((d,l)=>{c[l]=d}),o>0&&(c["X-Retry-Count"]=String(o));let u;try{u=await s(this.url.toString(),{method:this.method,headers:c,body:JSON.stringify(this.body,(d,l)=>typeof l=="bigint"?l.toString():l),signal:this.signal})}catch(d){if(d?.name==="AbortError"||d?.code==="ABORT_ERR"||!_e.includes(this.method))throw d;if(this.retryEnabled&&o<3){let l=Pe(o);o++,await Xe(l,this.signal);continue}throw d}if(Gt(this.method,u.status,o,this.retryEnabled)){let d=u.headers?.get("Retry-After")??null,l=d!==null?Math.max(0,parseInt(d,10)||0)*1e3:Pe(o);await u.text(),o++,await Xe(l,this.signal);continue}return await this.processResponse(u)}},"executeWithRetry")();return this.shouldThrowOnError||(i=i.catch(o=>{let c="",u="",d="",l=o?.cause;if(l){let g=l?.message??"",y=l?.code??"";c=`${o?.name??"FetchError"}: ${o?.message}`,c+=`
+
+Caused by: ${l?.name??"Error"}: ${g}`,y&&(c+=` (${y})`),l?.stack&&(c+=`
+${l.stack}`)}else c=o?.stack??"";let f=this.url.toString().length;return o?.name==="AbortError"||o?.code==="ABORT_ERR"?(d="",u="Request was aborted (timeout or manual cancellation)",f>this.urlLengthLimit&&(u+=`. Note: Your request URL is ${f} characters, which may exceed server limits. If selecting many fields, consider using views. If filtering with large arrays (e.g., .in('id', [many IDs])), consider using an RPC function to pass values server-side.`)):(l?.name==="HeadersOverflowError"||l?.code==="UND_ERR_HEADERS_OVERFLOW")&&(d="",u="HTTP headers exceeded server limits (typically 16KB)",f>this.urlLengthLimit&&(u+=`. Your request URL is ${f} characters. If selecting many fields, consider using views. If filtering with large arrays (e.g., .in('id', [200+ IDs])), consider using an RPC function instead.`)),{success:!1,error:{message:`${o?.name??"FetchError"}: ${o?.message}`,details:c,hint:u,code:d},data:null,count:null,status:0,statusText:""}})),i.then(e,t)}async processResponse(e){let t=null,s=null,n=null,i=e.status,o=e.statusText;if(e.ok){if(this.method!=="HEAD"){let d=await e.text();if(d!=="")if(this.headers.get("Accept")==="text/csv")s=d;else if(this.headers.get("Accept")&&this.headers.get("Accept")?.includes("application/vnd.pgrst.plan+text"))s=d;else try{s=JSON.parse(d)}catch{if(t={message:d},s=null,this.shouldThrowOnError)throw new I({message:d,details:"",hint:"",code:""})}}let c=this.headers.get("Prefer")?.match(/count=(exact|planned|estimated)/),u=e.headers.get("content-range")?.split("/");if(c&&u&&u.length>1&&(n=parseInt(u[1])),this.isMaybeSingle&&Array.isArray(s))if(s.length>1){if(t={code:"PGRST116",details:`Results contain ${s.length} rows, application/vnd.pgrst.object+json requires 1 row`,hint:null,message:"JSON object requested, multiple (or no) rows returned"},s=null,n=null,i=406,o="Not Acceptable",this.shouldThrowOnError)throw new I({...t,hint:t.hint??""})}else s.length===1?s=s[0]:s=null}else{let c=await e.text();try{t=JSON.parse(c),Array.isArray(t)&&e.status===404&&(s=[],t=null,i=200,o="OK")}catch{e.status===404&&c===""?(i=204,o="No Content"):t={message:c}}if(t&&this.shouldThrowOnError)throw new I(t)}return{success:t===null,error:t,data:s,count:n,status:i,statusText:o}}returns(){return this}overrideTypes(){return this}};var z=class extends V{static{a(this,"PostgrestTransformBuilder")}throwOnError(){return super.throwOnError()}select(e){let t=!1,s=(e??"*").split("").map(n=>/\s/.test(n)&&!t?"":(n==='"'&&(t=!t),n)).join("");return this.url.searchParams.set("select",s),this.headers.append("Prefer","return=representation"),this}order(e,{ascending:t=!0,nullsFirst:s,foreignTable:n,referencedTable:i=n}={}){let o=i?`${i}.order`:"order",c=this.url.searchParams.get(o);return this.url.searchParams.set(o,`${c?`${c},`:""}${e}.${t?"asc":"desc"}${s===void 0?"":s?".nullsfirst":".nullslast"}`),this}limit(e,{foreignTable:t,referencedTable:s=t}={}){let n=typeof s>"u"?"limit":`${s}.limit`;return this.url.searchParams.set(n,`${e}`),this}range(e,t,{foreignTable:s,referencedTable:n=s}={}){let i=typeof n>"u"?"offset":`${n}.offset`,o=typeof n>"u"?"limit":`${n}.limit`;return this.url.searchParams.set(i,`${e}`),this.url.searchParams.set(o,`${t-e+1}`),this}abortSignal(e){return this.signal=e,this}single(){return this.headers.set("Accept","application/vnd.pgrst.object+json"),this}maybeSingle(){return this.isMaybeSingle=!0,this}csv(){return this.headers.set("Accept","text/csv"),this}geojson(){return this.headers.set("Accept","application/geo+json"),this}explain({analyze:e=!1,verbose:t=!1,settings:s=!1,buffers:n=!1,wal:i=!1,format:o="text"}={}){let c=[e?"analyze":null,t?"verbose":null,s?"settings":null,n?"buffers":null,i?"wal":null].filter(Boolean).join("|"),u=this.headers.get("Accept")??"application/json";return this.headers.set("Accept",`application/vnd.pgrst.plan+${o}; for="${u}"; options=${c};`),o==="json"?this:this}rollback(){return this.headers.append("Prefer","tx=rollback"),this}returns(){return this}maxAffected(e){return this.headers.append("Prefer","handling=strict"),this.headers.append("Prefer",`max-affected=${e}`),this}};var Ze=new RegExp("[,()]"),A=class extends z{static{a(this,"PostgrestFilterBuilder")}throwOnError(){return super.throwOnError()}eq(e,t){return this.url.searchParams.append(e,`eq.${t}`),this}neq(e,t){return this.url.searchParams.append(e,`neq.${t}`),this}gt(e,t){return this.url.searchParams.append(e,`gt.${t}`),this}gte(e,t){return this.url.searchParams.append(e,`gte.${t}`),this}lt(e,t){return this.url.searchParams.append(e,`lt.${t}`),this}lte(e,t){return this.url.searchParams.append(e,`lte.${t}`),this}like(e,t){return this.url.searchParams.append(e,`like.${t}`),this}likeAllOf(e,t){return this.url.searchParams.append(e,`like(all).{${t.join(",")}}`),this}likeAnyOf(e,t){return this.url.searchParams.append(e,`like(any).{${t.join(",")}}`),this}ilike(e,t){return this.url.searchParams.append(e,`ilike.${t}`),this}ilikeAllOf(e,t){return this.url.searchParams.append(e,`ilike(all).{${t.join(",")}}`),this}ilikeAnyOf(e,t){return this.url.searchParams.append(e,`ilike(any).{${t.join(",")}}`),this}regexMatch(e,t){return this.url.searchParams.append(e,`match.${t}`),this}regexIMatch(e,t){return this.url.searchParams.append(e,`imatch.${t}`),this}is(e,t){return this.url.searchParams.append(e,`is.${t}`),this}isDistinct(e,t){return this.url.searchParams.append(e,`isdistinct.${t}`),this}in(e,t){let s=Array.from(new Set(t)).map(n=>typeof n=="string"&&Ze.test(n)?`"${n}"`:`${n}`).join(",");return this.url.searchParams.append(e,`in.(${s})`),this}notIn(e,t){let s=Array.from(new Set(t)).map(n=>typeof n=="string"&&Ze.test(n)?`"${n}"`:`${n}`).join(",");return this.url.searchParams.append(e,`not.in.(${s})`),this}contains(e,t){return typeof t=="string"?this.url.searchParams.append(e,`cs.${t}`):Array.isArray(t)?this.url.searchParams.append(e,`cs.{${t.join(",")}}`):this.url.searchParams.append(e,`cs.${JSON.stringify(t)}`),this}containedBy(e,t){return typeof t=="string"?this.url.searchParams.append(e,`cd.${t}`):Array.isArray(t)?this.url.searchParams.append(e,`cd.{${t.join(",")}}`):this.url.searchParams.append(e,`cd.${JSON.stringify(t)}`),this}rangeGt(e,t){return this.url.searchParams.append(e,`sr.${t}`),this}rangeGte(e,t){return this.url.searchParams.append(e,`nxl.${t}`),this}rangeLt(e,t){return this.url.searchParams.append(e,`sl.${t}`),this}rangeLte(e,t){return this.url.searchParams.append(e,`nxr.${t}`),this}rangeAdjacent(e,t){return this.url.searchParams.append(e,`adj.${t}`),this}overlaps(e,t){return typeof t=="string"?this.url.searchParams.append(e,`ov.${t}`):this.url.searchParams.append(e,`ov.{${t.join(",")}}`),this}textSearch(e,t,{config:s,type:n}={}){let i="";n==="plain"?i="pl":n==="phrase"?i="ph":n==="websearch"&&(i="w");let o=s===void 0?"":`(${s})`;return this.url.searchParams.append(e,`${i}fts${o}.${t}`),this}match(e){return Object.entries(e).filter(([t,s])=>s!==void 0).forEach(([t,s])=>{this.url.searchParams.append(t,`eq.${s}`)}),this}not(e,t,s){return this.url.searchParams.append(e,`not.${t}.${s}`),this}or(e,{foreignTable:t,referencedTable:s=t}={}){let n=s?`${s}.or`:"or";return this.url.searchParams.append(n,`(${e})`),this}filter(e,t,s){return this.url.searchParams.append(e,`${t}.${s}`),this}};var G=class{static{a(this,"PostgrestQueryBuilder")}url;headers;schema;signal;fetch;urlLengthLimit;retry;constructor(e,{headers:t={},schema:s,fetch:n,urlLengthLimit:i=8e3,retry:o}){this.url=e,this.headers=new Headers(t),this.schema=s,this.fetch=n,this.urlLengthLimit=i,this.retry=o}cloneRequestState(){return{url:new URL(this.url.toString()),headers:new Headers(this.headers)}}select(e,t){let{head:s=!1,count:n}=t??{},i=s?"HEAD":"GET",o=!1,c=(e??"*").split("").map(l=>/\s/.test(l)&&!o?"":(l==='"'&&(o=!o),l)).join(""),{url:u,headers:d}=this.cloneRequestState();return u.searchParams.set("select",c),n&&d.append("Prefer",`count=${n}`),new A({method:i,url:u,headers:d,schema:this.schema,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}insert(e,{count:t,defaultToNull:s=!0}={}){let n="POST",{url:i,headers:o}=this.cloneRequestState();if(t&&o.append("Prefer",`count=${t}`),s||o.append("Prefer","missing=default"),Array.isArray(e)){let c=e.reduce((u,d)=>u.concat(Object.keys(d)),[]);if(c.length>0){let u=[...new Set(c)].map(d=>`"${d}"`);i.searchParams.set("columns",u.join(","))}}return new A({method:n,url:i,headers:o,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}upsert(e,{onConflict:t,ignoreDuplicates:s=!1,count:n,defaultToNull:i=!0}={}){let o="POST",{url:c,headers:u}=this.cloneRequestState();if(u.append("Prefer",`resolution=${s?"ignore":"merge"}-duplicates`),t!==void 0&&c.searchParams.set("on_conflict",t),n&&u.append("Prefer",`count=${n}`),i||u.append("Prefer","missing=default"),Array.isArray(e)){let d=e.reduce((l,f)=>l.concat(Object.keys(f)),[]);if(d.length>0){let l=[...new Set(d)].map(f=>`"${f}"`);c.searchParams.set("columns",l.join(","))}}return new A({method:o,url:c,headers:u,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}update(e,{count:t}={}){let s="PATCH",{url:n,headers:i}=this.cloneRequestState();return t&&i.append("Prefer",`count=${t}`),new A({method:s,url:n,headers:i,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}delete({count:e}={}){let t="DELETE",{url:s,headers:n}=this.cloneRequestState();return e&&n.append("Prefer",`count=${e}`),new A({method:t,url:s,headers:n,schema:this.schema,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}};var N=class r{static{a(this,"PostgrestClient")}url;headers;schemaName;fetch;urlLengthLimit;retry;constructor(e,{headers:t={},schema:s,fetch:n,timeout:i,urlLengthLimit:o=8e3,retry:c}={}){this.url=e,this.headers=new Headers(t),this.schemaName=s,this.urlLengthLimit=o;let u=n??globalThis.fetch;i!==void 0&&i>0?this.fetch=(d,l)=>{let f=new AbortController,g=setTimeout(()=>f.abort(),i),y=l?.signal;if(y){if(y.aborted)return clearTimeout(g),u(d,l);let ne=a(()=>{clearTimeout(g),f.abort()},"abortHandler");return y.addEventListener("abort",ne,{once:!0}),u(d,{...l,signal:f.signal}).finally(()=>{clearTimeout(g),y.removeEventListener("abort",ne)})}return u(d,{...l,signal:f.signal}).finally(()=>clearTimeout(g))}:this.fetch=u,this.retry=c}from(e){if(!e||typeof e!="string"||e.trim()==="")throw new Error("Invalid relation name: relation must be a non-empty string.");let t=new URL(`${this.url}/${e}`);return new G(t,{headers:new Headers(this.headers),schema:this.schemaName,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}schema(e){return new r(this.url,{headers:this.headers,schema:e,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}rpc(e,t={},{head:s=!1,get:n=!1,count:i}={}){let o,c=new URL(`${this.url}/rpc/${e}`),u,d=a(g=>g!==null&&typeof g=="object"&&(!Array.isArray(g)||g.some(d)),"_isObject"),l=s&&Object.values(t).some(d);l?(o="POST",u=t):s||n?(o=s?"HEAD":"GET",Object.entries(t).filter(([g,y])=>y!==void 0).map(([g,y])=>[g,Array.isArray(y)?`{${y.join(",")}}`:`${y}`]).forEach(([g,y])=>{c.searchParams.append(g,y)})):(o="POST",u=t);let f=new Headers(this.headers);return l?f.set("Prefer",i?`count=${i},return=minimal`:"return=minimal"):i&&f.set("Prefer",`count=${i}`),new A({method:o,url:c,headers:f,schema:this.schemaName,body:u,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}};var J=class{static{a(this,"WorkBuddyDatabaseModule")}client;constructor(e,t){this.client=new N(`${e.endpoint}${R.database}`,{fetch:t}),this.from=this.client.from.bind(this.client),this.rpc=this.client.rpc.bind(this.client)}from;rpc;get url(){return this.client.url}};function et(r,e){return new J(r,e)}a(et,"createDatabaseModule");var x=class extends Error{static{a(this,"CloudOpenAIError")}error;status;requestId;retryAfterMs;constructor(e,t={}){let s=typeof e=="string"?{message:e,type:"server_error",param:null,code:null}:e;super(s.message),this.name="CloudOpenAIError",this.error=s,this.status=t.status,this.requestId=t.requestId,this.retryAfterMs=t.retryAfterMs,t.cause!==void 0&&("cause"in this||Object.defineProperty(this,"cause",{value:t.cause,writable:!1,enumerable:!1,configurable:!1}))}};function tt(r){if(!r)return;let e=r.trim(),t=Number(e);if(!isNaN(t)&&t>=0&&Number.isInteger(t))return t*1e3;let s=Date.parse(e);if(!isNaN(s)){let n=s-Date.now();return n>0?n:0}}a(tt,"parseRetryAfter");function m(...r){return r.find(e=>typeof e=="string"&&e.length>0)}a(m,"stringField");function k(...r){return r.find(e=>typeof e=="number"&&Number.isFinite(e))}a(k,"numberField");function E(...r){return r.find(e=>typeof e=="boolean")}a(E,"booleanField");function rt(...r){for(let e of r){if(typeof e=="number"&&Number.isFinite(e))return e;if(e!==null&&typeof e=="object"&&!Array.isArray(e))return Jt(e)}}a(rt,"contextWindowField");function Jt(r){let e={};for(let[t,s]of Object.entries(r)){if(t==="supportedLengths"){Array.isArray(s)&&(e.supportedLengths=s.filter(n=>typeof n=="number"&&Number.isFinite(n)));continue}if(t==="defaultLength"){typeof s=="number"&&Number.isFinite(s)&&(e.defaultLength=s);continue}Object.defineProperty(e,t,{value:s,writable:!0,enumerable:!0,configurable:!0})}return e}a(Jt,"normalizeContextWindowObject");function st(r){if(!r||typeof r!="object")return;let e=r,t=Array.isArray(e.input)?e.input.filter(n=>typeof n=="string"):void 0,s=Array.isArray(e.output)?e.output.filter(n=>typeof n=="string"):void 0;return t?.length||s?.length?{...t?.length?{input:t}:{},...s?.length?{output:s}:{}}:void 0}a(st,"modalitiesField");function nt(r){if(!r||typeof r!="object")return;let t=Object.entries(r).filter(([,s])=>typeof s=="boolean");return t.length?Object.fromEntries(t):void 0}a(nt,"capabilitiesField");function it(r){if(!r||typeof r!="object")return;let e=r,t={...m(e.currency)?{currency:e.currency}:{},...k(e.inputPerMillionTokens)!==void 0?{inputPerMillionTokens:e.inputPerMillionTokens}:{},...k(e.outputPerMillionTokens)!==void 0?{outputPerMillionTokens:e.outputPerMillionTokens}:{},...m(e.displayText)?{displayText:e.displayText}:{}};return Object.keys(t).length?t:void 0}a(it,"pricingField");function ot(r){if(!r||typeof r!="object")return;let e=r,t={},s=m(e.effort);s!==void 0&&(t.effort=s);let n=m(e.defaultEffort);n!==void 0&&(t.defaultEffort=n),Array.isArray(e.supportedEfforts)&&(t.supportedEfforts=e.supportedEfforts.filter(c=>typeof c=="string"));let i=m(e.summary);i!==void 0&&(i==="auto"||i==="concise"||i==="detailed")&&(t.summary=i);let o=E(e.canDisableThinking);return o!==void 0&&(t.canDisableThinking=o),Object.keys(t).length>0?t:void 0}a(ot,"reasoningField");function Yt(r){let e=m(r.id,r.ID);if(!e)return null;let t=E(r.enabled,r.Enabled),s=E(r.disabled,r.Disabled),n,i;return t!==void 0?(n=t,s!==void 0&&(i=s)):s!==void 0?(i=s,n=!s):n=!0,{id:e,name:m(r.name,r.Name)??e,...m(r.provider,r.Provider)?{provider:m(r.provider,r.Provider)}:{},...m(r.vendor,r.Vendor)?{vendor:m(r.vendor,r.Vendor)}:{},...m(r.family,r.Family)?{family:m(r.family,r.Family)}:{},...m(r.version,r.Version)?{version:m(r.version,r.Version)}:{},...m(r.description,r.Description)?{description:m(r.description,r.Description)}:{},...m(r.descriptionZh,r.DescriptionZh)?{descriptionZh:m(r.descriptionZh,r.DescriptionZh)}:{},...m(r.descriptionEn,r.DescriptionEn)?{descriptionEn:m(r.descriptionEn,r.DescriptionEn)}:{},...m(r.iconUrl,r.IconURL)?{iconUrl:m(r.iconUrl,r.IconURL)}:{},...rt(r.contextWindow,r.ContextWindow)!==void 0?{contextWindow:rt(r.contextWindow,r.ContextWindow)}:{},...k(r.maxInputTokens,r.MaxInputTokens)!==void 0?{maxInputTokens:k(r.maxInputTokens,r.MaxInputTokens)}:{},...k(r.maxOutputTokens,r.MaxOutputTokens)!==void 0?{maxOutputTokens:k(r.maxOutputTokens,r.MaxOutputTokens)}:{},...st(r.modalities??r.Modalities)?{modalities:st(r.modalities??r.Modalities)}:{},...nt(r.capabilities??r.Capabilities)?{capabilities:nt(r.capabilities??r.Capabilities)}:{},enabled:n,...i!==void 0?{disabled:i}:{},...E(r.isDefault,r.IsDefault)!==void 0?{isDefault:E(r.isDefault,r.IsDefault)}:{},...k(r.sortOrder,r.SortOrder)!==void 0?{sortOrder:k(r.sortOrder,r.SortOrder)}:{},...it(r.pricing??r.Pricing)?{pricing:it(r.pricing??r.Pricing)}:{},...m(r.credits,r.Credits)?{credits:m(r.credits,r.Credits)}:{},...k(r.maxAllowedSize,r.MaxAllowedSize)!==void 0?{maxAllowedSize:k(r.maxAllowedSize,r.MaxAllowedSize)}:{},...E(r.disabledMultimodal,r.DisabledMultimodal)!==void 0?{disabledMultimodal:E(r.disabledMultimodal,r.DisabledMultimodal)}:{},...E(r.supportsImages,r.SupportsImages)!==void 0?{supportsImages:E(r.supportsImages,r.SupportsImages)}:{},...E(r.supportsToolCall,r.SupportsToolCall)!==void 0?{supportsToolCall:E(r.supportsToolCall,r.SupportsToolCall)}:{},...E(r.supportsReasoning,r.SupportsReasoning)!==void 0?{supportsReasoning:E(r.supportsReasoning,r.SupportsReasoning)}:{},...E(r.onlyReasoning,r.OnlyReasoning)!==void 0?{onlyReasoning:E(r.onlyReasoning,r.OnlyReasoning)}:{},...ot(r.reasoning??r.Reasoning)?{reasoning:ot(r.reasoning??r.Reasoning)}:{},...k(r.temperature,r.Temperature)!==void 0?{temperature:k(r.temperature,r.Temperature)}:{},...k(r.top_k,r.Top_K)!==void 0?{top_k:k(r.top_k,r.Top_K)}:{},...k(r.top_p,r.Top_P)!==void 0?{top_p:k(r.top_p,r.Top_P)}:{},...k(r.repetition_penalty,r.Repetition_Penalty)!==void 0?{repetition_penalty:k(r.repetition_penalty,r.Repetition_Penalty)}:{}}}a(Yt,"normalizeModel");function Te(r){return r.name||r.id}a(Te,"getModelDisplayName");function Oe(r,e){return r.capabilities?.[e]}a(Oe,"getModelCapability");var he=class{static{a(this,"ModelsAPI")}baseUrl;fetch;constructor(e,t){this.baseUrl=e,this.fetch=t}async list(e){let t;try{t=await this.fetch(`${this.baseUrl}/models`,{method:"GET",headers:{Accept:"application/json"},signal:e})}catch(c){throw c instanceof Error&&c.name==="AbortError"?c:new x({message:`Network error: ${c?.message??"unknown"}`,type:"server_error",param:null,code:"gateway_network_error"},{cause:c})}if(!t.ok)throw await Ae(t);let s=await t.text(),n;try{n=JSON.parse(s)}catch{throw new x({message:"Failed to parse models response: invalid JSON",type:"server_error",param:null,code:"gateway_invalid_response"})}let i=Array.isArray(n)?n:Array.isArray(n?.data)?n.data:[],o=[];for(let c of i){let u=Yt(c);u&&o.push(u)}return o}};async function Ae(r){let e=await r.text().catch(()=>""),t;try{let i=JSON.parse(e);if(i&&typeof i=="object"&&i.error){let o=i.error;t={message:typeof o.message=="string"?o.message:`HTTP ${r.status}`,type:typeof o.type=="string"?o.type:"server_error",param:o.param===void 0?null:o.param,code:o.code===void 0?null:o.code}}else t={message:typeof i=="string"?i:`HTTP ${r.status}`,type:"server_error",param:null,code:null}}catch{t={message:e||`HTTP ${r.status}`,type:"server_error",param:null,code:null}}let s=r.headers.get("x-request-id")??void 0,n=tt(r.headers.get("retry-after"));return new x(t,{status:r.status,requestId:s,retryAfterMs:n})}a(Ae,"httpError");var fe=class{static{a(this,"Utf8Decoder")}codePoint=0;bytesNeeded=0;bytesSeen=0;lowerBoundary=128;upperBoundary=191;bomSeen=!1;streaming=!1;resetSequence(){this.codePoint=0,this.bytesNeeded=0,this.bytesSeen=0,this.lowerBoundary=128,this.upperBoundary=191}decode(e=new Uint8Array,t={}){this.streaming||(this.resetSequence(),this.bomSeen=!1),this.streaming=t.stream===!0;let s="",n=a(i=>{!this.bomSeen&&(this.bomSeen=!0,i===65279)||(s+=String.fromCodePoint(i))},"emit");for(let i=0;i<e.length;i++){let o=e[i];if(this.bytesNeeded===0){o<=127?n(o):o>=194&&o<=223?(this.bytesNeeded=1,this.codePoint=o&31):o>=224&&o<=239?(this.bytesNeeded=2,this.codePoint=o&15,o===224&&(this.lowerBoundary=160),o===237&&(this.upperBoundary=159)):o>=240&&o<=244?(this.bytesNeeded=3,this.codePoint=o&7,o===240&&(this.lowerBoundary=144),o===244&&(this.upperBoundary=143)):n(65533);continue}if(o<this.lowerBoundary||o>this.upperBoundary){this.resetSequence(),n(65533),i--;continue}this.lowerBoundary=128,this.upperBoundary=191,this.codePoint=this.codePoint<<6|o&63,this.bytesSeen++,this.bytesSeen===this.bytesNeeded&&(n(this.codePoint),this.resetSequence())}return!this.streaming&&this.bytesNeeded>0&&(n(65533),this.resetSequence()),s}};var Xt=class{static{a(this,"SSEDecoder")}event=null;dataParts=[];decode(e){let t=e;if(t.endsWith("\r")&&(t=t.slice(0,-1)),t===""){if(this.event===null&&this.dataParts.length===0)return null;let o={event:this.event,data:this.dataParts.join(`
+`)};return this.event=null,this.dataParts=[],o}if(t.startsWith(":"))return null;let s=t.indexOf(":"),n,i;if(s===-1)n=t,i="";else{n=t.slice(0,s);let o=t.slice(s+1);o.startsWith(" ")&&(o=o.slice(1)),i=o}return n==="event"?this.event=i:n==="data"&&this.dataParts.push(i),null}flush(){if(this.event===null&&this.dataParts.length===0)return null;let e={event:this.event,data:this.dataParts.join(`
+`)};return this.event=null,this.dataParts=[],e}},Qt=class{static{a(this,"LineDecoder")}buffer=new Uint8Array;decoder;constructor(){this.decoder=typeof TextDecoder>"u"?new fe:new TextDecoder("utf-8")}decode(e){let t=new Uint8Array(this.buffer.length+e.length);t.set(this.buffer),t.set(e,this.buffer.length),this.buffer=t;let s=[],n=0;for(let i=0;i<this.buffer.length;i++)if(this.buffer[i]===10||this.buffer[i]===13){let o=this.buffer.subarray(n,i),c=this.decoder.decode(o,{stream:!0});s.push(c),this.buffer[i]===13&&i+1<this.buffer.length&&this.buffer[i+1]===10&&i++,n=i+1}return n>0&&(this.buffer=this.buffer.slice(n)),s}flush(){if(this.buffer.length===0){let t=this.decoder.decode();return t?[t]:[]}let e=this.decoder.decode(this.buffer,{stream:!1});return this.buffer=new Uint8Array,e?[e]:[]}},at="[DONE]";async function*ct(r,e){let t=new Xt,s=new Qt,n=r.getReader(),i=!1,o=a(()=>{i=!0,n.cancel().catch(()=>{})},"onAbort");if(e){if(e.aborted)return;e.addEventListener("abort",o,{once:!0})}try{for(;;){if(i)return;let u;try{u=await n.read()}catch(f){if(i||f instanceof Error&&f.name==="AbortError")return;throw f}let{done:d,value:l}=u;if(d)break;for(let f of s.decode(l)){let g=t.decode(f);g&&(yield g)}}for(let u of s.flush()){let d=t.decode(u);d&&(yield d)}let c=t.flush();c&&(yield c)}finally{e&&e.removeEventListener("abort",o);try{n.releaseLock()}catch{}}}a(ct,"iterSSEEvents");function Zt(r,e){let t=e?{requestId:e}:{};try{let s=JSON.parse(r);if(s&&typeof s=="object"){let n=s.error??s;if(n&&typeof n=="object")return new x({message:typeof n.message=="string"?n.message:"Stream error",type:typeof n.type=="string"?n.type:"server_error",param:n.param===void 0?null:n.param,code:n.code===void 0?null:n.code},t)}}catch{}return new x({message:r||"Stream error",type:"server_error",param:null,code:null},t)}a(Zt,"extractSSEError");var pe=class{static{a(this,"ChatCompletionsAPI")}baseUrl;fetch;constructor(e,t){this.baseUrl=e,this.fetch=t}create(e){if(e.stream!==!0)throw new x({message:"stream must be true; non-streaming chat completions are not supported",type:"invalid_request_error",param:"stream",code:"request_stream_required"});return this.createStreaming(e)}async*createStreaming(e){let{signal:t,conversationId:s,...n}=e;n.stream=!0;let i;try{i=await this.fetch(`${this.baseUrl}/chat/completions`,{method:"POST",headers:{Accept:"text/event-stream","Content-Type":"application/json",...s!==void 0?{"X-Conversation-ID":s}:{}},body:JSON.stringify(n),signal:t})}catch(d){if(d instanceof Error&&d.name==="AbortError")return;throw new x({message:`Network error: ${d?.message??"unknown"}`,type:"server_error",param:null,code:"gateway_network_error"},{cause:d})}if(!i.ok)throw await Ae(i);if(!i.body)throw new x({message:"Response body is empty \u2014 streaming not supported",type:"server_error",param:null,code:"gateway_invalid_response"},{requestId:i.headers.get("x-request-id")??void 0});let o=i.headers.get("x-request-id")??void 0,c=!1,u=!1;try{for await(let d of ct(i.body,t)){if(d.event==="error")throw u=!0,Zt(d.data,o);if(d.event===null||d.event===""){if(d.data===at){c=!0;return}if(!d.data)continue;let l;try{l=JSON.parse(d.data)}catch{throw u=!0,new x({message:`Failed to parse SSE data: ${d.data}`,type:"server_error",param:null,code:"gateway_invalid_response"},{requestId:o})}if(l&&typeof l=="object"&&"error"in l){u=!0;let f=l.error;throw new x({message:typeof f?.message=="string"?f.message:"Stream error",type:typeof f?.type=="string"?f.type:"server_error",param:f?.param===void 0?null:f.param,code:f?.code===void 0?null:f.code},{requestId:o})}yield l}}}catch(d){if(d instanceof Error&&d.name==="AbortError")return;throw u=!0,d}if(!c&&!u&&!t?.aborted)throw new x({message:"\u6D41\u5F0F\u54CD\u5E94\u4E2D\u65AD\u3002",type:"server_error",param:null,code:"gateway_stream_interrupted"},{requestId:o})}};var M=class{static{a(this,"LlmModule")}fetch;baseUrl;models;chat;constructor(e,t){this.fetch=t,this.baseUrl=`${e.endpoint}${R.llm}`,this.models=new he(this.baseUrl,this.fetch),this.chat={completions:new pe(this.baseUrl,this.fetch)}}};var F=class extends Error{static{a(this,"StorageError")}__isStorageError=!0;namespace;status;statusCode;constructor(e,t="storage",s,n){super(e),this.namespace=t,this.name=t==="vectors"?"StorageVectorsError":"StorageError",this.status=s,this.statusCode=n}toJSON(){return{name:this.name,message:this.message,status:this.status,statusCode:this.statusCode}}};function U(r){return typeof r=="object"&&r!==null&&"__isStorageError"in r}a(U,"isStorageError");var C=class extends F{static{a(this,"StorageApiError")}status;statusCode;code;constructor(e,t,s,n="storage",i){super(e,n,t,s),this.name=n==="vectors"?"StorageVectorsApiError":"StorageApiError",this.status=t,this.statusCode=s,this.code=i}toJSON(){return{...super.toJSON(),code:this.code}}},q=class extends F{static{a(this,"StorageUnknownError")}originalError;constructor(e,t,s="storage"){super(e,s),this.name=s==="vectors"?"StorageVectorsUnknownError":"StorageUnknownError",this.originalError=t}};function L(r,e,t){let s={...r},n=e.toLowerCase();for(let i of Object.keys(s))i.toLowerCase()===n&&delete s[i];return s[n]=t,s}a(L,"setHeader");function ut(r){let e={};for(let[t,s]of Object.entries(r))e[t.toLowerCase()]=s;return e}a(ut,"normalizeHeaders");var dt=a(r=>r?(...e)=>r(...e):(...e)=>fetch(...e),"resolveFetch");var lt=a(r=>{if(typeof r!="object"||r===null)return!1;let e=Object.getPrototypeOf(r);return(e===null||e===Object.prototype||Object.getPrototypeOf(e)===null)&&!(Symbol.toStringTag in r)&&!(Symbol.iterator in r)},"isPlainObject"),me=a(r=>{if(Array.isArray(r))return r.map(t=>me(t));if(typeof r=="function"||r!==Object(r))return r;let e={};return Object.entries(r).forEach(([t,s])=>{let n=t.replace(/([-_][a-z])/gi,i=>i.toUpperCase().replace(/[-_]/g,""));e[n]=me(s)}),e},"recursiveToCamel");var ht=a(r=>r.split("/").map(encodeURIComponent).join("/"),"encodeStoragePath");var ft=a(r=>{if(typeof r=="object"&&r!==null){let e=r;if(typeof e.msg=="string")return e.msg;if(typeof e.message=="string")return e.message;if(typeof e.error_description=="string")return e.error_description;if(typeof e.error=="string")return e.error;if(typeof e.error=="object"&&e.error!==null){let t=e.error;if(typeof t.message=="string")return t.message}}return JSON.stringify(r)},"_getErrorMessage"),er=a(async(r,e,t,s)=>{if(r!==null&&typeof r=="object"&&"json"in r&&typeof r.json=="function"){let i=r,o=parseInt(String(i.status),10);Number.isFinite(o)||(o=500),i.json().then(c=>{let u=c?.statusCode||c?.code||o+"";e(new C(ft(c),o,u,s,c?.code))}).catch(()=>{let c=o+"",u=i.statusText||`HTTP ${o} error`;e(new C(u,o,c,s))})}else e(new q(ft(r),r,s))},"handleError"),tr=a((r,e,t,s)=>{let n={method:r,headers:e?.headers||{}};if(r==="GET"||r==="HEAD"||!s)return{...n,...t};if(lt(s)){let i=e?.headers||{},o;for(let[c,u]of Object.entries(i))c.toLowerCase()==="content-type"&&(o=u);n.headers=L(i,"Content-Type",o??"application/json"),n.body=JSON.stringify(s)}else n.body=s;return e?.duplex&&(n.duplex=e.duplex),{...n,...t}},"_getRequestParams");async function Y(r,e,t,s,n,i,o){return new Promise((c,u)=>{r(t,tr(e,s,n,i)).then(d=>{if(!d.ok)throw d;if(s?.noResolveJson)return d;if(o==="vectors"){let l=d.headers.get("content-type");if(d.headers.get("content-length")==="0"||d.status===204)return{};if(!l||!l.includes("application/json"))return{}}return d.json()}).then(d=>c(d)).catch(d=>er(d,u,s,o))})}a(Y,"_handleRequest");function pt(r="storage"){return{get:a(async(e,t,s,n)=>Y(e,"GET",t,s,n,void 0,r),"get"),post:a(async(e,t,s,n,i)=>Y(e,"POST",t,n,i,s,r),"post"),put:a(async(e,t,s,n,i)=>Y(e,"PUT",t,n,i,s,r),"put"),head:a(async(e,t,s,n)=>Y(e,"HEAD",t,{...s,noResolveJson:!0},n,void 0,r),"head"),remove:a(async(e,t,s,n,i)=>Y(e,"DELETE",t,n,i,s,r),"remove")}}a(pt,"createFetchApi");var rr=pt("storage"),{get:Re,post:$,put:$e,head:mt,remove:Ue}=rr,Ms=pt("vectors");var X=class{static{a(this,"BaseApiClient")}url;headers;fetch;shouldThrowOnError=!1;namespace;constructor(e,t={},s,n="storage"){this.url=e,this.headers=ut(t),this.fetch=dt(s),this.namespace=n}throwOnError(){return this.shouldThrowOnError=!0,this}setHeader(e,t){return this.headers=L(this.headers,e,t),this}async handleOperation(e){try{return{data:await e(),error:null}}catch(t){if(this.shouldThrowOnError)throw t;if(U(t))return{data:null,error:t};throw t}}};var Q=class{static{a(this,"StreamDownloadBuilder")}downloadFn;shouldThrowOnError;[Symbol.toStringTag]="StreamDownloadBuilder";promise=null;constructor(e,t){this.downloadFn=e,this.shouldThrowOnError=t}then(e,t){return this.getPromise().then(e,t)}catch(e){return this.getPromise().catch(e)}finally(e){return this.getPromise().finally(e)}getPromise(){return this.promise||(this.promise=this.execute()),this.promise}async execute(){try{return{data:(await this.downloadFn()).body,error:null}}catch(e){if(this.shouldThrowOnError)throw e;if(U(e))return{data:null,error:e};throw e}}};var Z=class{static{a(this,"BlobDownloadBuilder")}downloadFn;shouldThrowOnError;[Symbol.toStringTag]="BlobDownloadBuilder";promise=null;constructor(e,t){this.downloadFn=e,this.shouldThrowOnError=t}asStream(){return new Q(this.downloadFn,this.shouldThrowOnError)}then(e,t){return this.getPromise().then(e,t)}catch(e){return this.getPromise().catch(e)}finally(e){return this.getPromise().finally(e)}getPromise(){return this.promise||(this.promise=this.execute()),this.promise}async execute(){try{return{data:await(await this.downloadFn()).blob(),error:null}}catch(e){if(this.shouldThrowOnError)throw e;if(U(e))return{data:null,error:e};throw e}}};var Ie={limit:100,offset:0,sortBy:{column:"name",order:"asc"}},gt={cacheControl:"3600",contentType:"text/plain;charset=UTF-8",upsert:!1},ee=class extends X{static{a(this,"StorageFileApi")}bucketId;constructor(e,t={},s,n){super(e,t,n,"storage"),this.bucketId=s}async uploadOrUpdate(e,t,s,n){return this.handleOperation(async()=>{let i,o={...gt,...n},c={...this.headers,...e==="POST"&&{"x-upsert":String(o.upsert)}},u=o.metadata;if(typeof Blob<"u"&&s instanceof Blob?(i=new FormData,i.append("cacheControl",o.cacheControl),u&&i.append("metadata",this.encodeMetadata(u)),i.append("",s)):typeof FormData<"u"&&s instanceof FormData?(i=s,i.has("cacheControl")||i.append("cacheControl",o.cacheControl),u&&!i.has("metadata")&&i.append("metadata",this.encodeMetadata(u))):(i=s,c["cache-control"]=`max-age=${o.cacheControl}`,c["content-type"]=o.contentType,u&&(c["x-metadata"]=this.toBase64(this.encodeMetadata(u))),(typeof ReadableStream<"u"&&i instanceof ReadableStream||i&&typeof i=="object"&&"pipe"in i&&typeof i.pipe=="function")&&!o.duplex&&(o.duplex="half")),n?.headers)for(let[g,y]of Object.entries(n.headers))c=L(c,g,y);let d=this._removeEmptyFolders(t),l=this._getFinalPath(d),f=await(e=="PUT"?$e:$)(this.fetch,`${this.url}/object/${l}`,i,{headers:c,...o?.duplex?{duplex:o.duplex}:{}});return{path:d,id:f.Id,fullPath:f.Key}})}async upload(e,t,s){return this.uploadOrUpdate("POST",e,t,s)}async uploadToSignedUrl(e,t,s,n){let i=this._removeEmptyFolders(e),o=this._getFinalPath(i),c=new URL(this.url+`/object/upload/sign/${o}`);return c.searchParams.set("token",t),this.handleOperation(async()=>{let u,d={...gt,...n},l={...this.headers,"x-upsert":String(d.upsert)},f=d.metadata;if(typeof Blob<"u"&&s instanceof Blob?(u=new FormData,u.append("cacheControl",d.cacheControl),f&&u.append("metadata",this.encodeMetadata(f)),u.append("",s)):typeof FormData<"u"&&s instanceof FormData?(u=s,u.has("cacheControl")||u.append("cacheControl",d.cacheControl),f&&!u.has("metadata")&&u.append("metadata",this.encodeMetadata(f))):(u=s,l["cache-control"]=`max-age=${d.cacheControl}`,l["content-type"]=d.contentType,f&&(l["x-metadata"]=this.toBase64(this.encodeMetadata(f))),(typeof ReadableStream<"u"&&u instanceof ReadableStream||u&&typeof u=="object"&&"pipe"in u&&typeof u.pipe=="function")&&!d.duplex&&(d.duplex="half")),n?.headers)for(let[y,ne]of Object.entries(n.headers))l=L(l,y,ne);let g=await $e(this.fetch,c.toString(),u,{headers:l,...d?.duplex?{duplex:d.duplex}:{}});return{path:i,fullPath:g.Key}})}async createSignedUploadUrl(e,t){return this.handleOperation(async()=>{let s=this._getFinalPath(e),n={...this.headers};t?.upsert&&(n["x-upsert"]="true");let i=await $(this.fetch,`${this.url}/object/upload/sign/${s}`,{},{headers:n}),o=new URL(this.url+i.url),c=o.searchParams.get("token");if(!c)throw new F("No token returned by API");return{signedUrl:o.toString(),path:e,token:c}})}async update(e,t,s){return this.uploadOrUpdate("PUT",e,t,s)}async move(e,t,s){return this.handleOperation(async()=>await $(this.fetch,`${this.url}/object/move`,{bucketId:this.bucketId,sourceKey:e,destinationKey:t,destinationBucket:s?.destinationBucket},{headers:this.headers}))}async copy(e,t,s){return this.handleOperation(async()=>({path:(await $(this.fetch,`${this.url}/object/copy`,{bucketId:this.bucketId,sourceKey:e,destinationKey:t,destinationBucket:s?.destinationBucket},{headers:this.headers})).Key}))}async createSignedUrl(e,t,s){return this.handleOperation(async()=>{let n=this._getFinalPath(e),i=typeof s?.transform=="object"&&s.transform!==null&&Object.keys(s.transform).length>0,o=await $(this.fetch,`${this.url}/object/sign/${n}`,{expiresIn:t,...i?{transform:s.transform}:{}},{headers:this.headers}),c=new URLSearchParams;s?.download&&c.set("download",s.download===!0?"":s.download),s?.cacheNonce!=null&&c.set("cacheNonce",String(s.cacheNonce));let u=c.toString();return{signedUrl:encodeURI(`${this.url}${o.signedURL}${u?`&${u}`:""}`)}})}async createSignedUrls(e,t,s){return this.handleOperation(async()=>{let n=await $(this.fetch,`${this.url}/object/sign/${this.bucketId}`,{expiresIn:t,paths:e},{headers:this.headers}),i=new URLSearchParams;s?.download&&i.set("download",s.download===!0?"":s.download),s?.cacheNonce!=null&&i.set("cacheNonce",String(s.cacheNonce));let o=i.toString();return n.map(c=>({...c,signedUrl:c.signedURL?encodeURI(`${this.url}${c.signedURL}${o?`&${o}`:""}`):null}))})}download(e,t,s){let i=typeof t?.transform=="object"&&t.transform!==null&&Object.keys(t.transform).length>0?"render/image/authenticated":"object",o=new URLSearchParams;t?.transform&&this.applyTransformOptsToQuery(o,t.transform),t?.cacheNonce!=null&&o.set("cacheNonce",String(t.cacheNonce));let c=o.toString(),u=this._getFinalPath(e),d=a(()=>Re(this.fetch,`${this.url}/${i}/${u}${c?`?${c}`:""}`,{headers:this.headers,noResolveJson:!0},s),"downloadFn");return new Z(d,this.shouldThrowOnError)}async info(e){let t=this._getFinalPath(e);return this.handleOperation(async()=>{let s=await Re(this.fetch,`${this.url}/object/info/${t}`,{headers:this.headers});return me(s)})}async exists(e){let t=this._getFinalPath(e);try{return await mt(this.fetch,`${this.url}/object/${t}`,{headers:this.headers}),{data:!0,error:null}}catch(s){if(this.shouldThrowOnError)throw s;if(U(s)){let n=s instanceof C?s.status:s instanceof q?s.originalError?.status:void 0;if(n!==void 0&&[400,404].includes(n))return{data:!1,error:s}}throw s}}getPublicUrl(e,t){let s=this._getFinalPath(e),n=new URLSearchParams;t?.download&&n.set("download",t.download===!0?"":t.download),t?.transform&&this.applyTransformOptsToQuery(n,t.transform),t?.cacheNonce!=null&&n.set("cacheNonce",String(t.cacheNonce));let i=n.toString(),c=typeof t?.transform=="object"&&t.transform!==null&&Object.keys(t.transform).length>0?"render/image":"object";return{data:{publicUrl:encodeURI(`${this.url}/${c}/public/${s}`)+(i?`?${i}`:"")}}}async remove(e){return this.handleOperation(async()=>await Ue(this.fetch,`${this.url}/object/${this.bucketId}`,{prefixes:e},{headers:this.headers}))}async purgeCache(e,t,s){return this.handleOperation(async()=>{let n=ht(this._getFinalPath(e)),i=new URLSearchParams;t?.transformations&&i.set("transformations","true");let o=i.toString();return await Ue(this.fetch,`${this.url}/cdn/${n}${o?`?${o}`:""}`,{},{headers:this.headers},s)})}async list(e,t,s){return this.handleOperation(async()=>{let n=t?.sortBy?{...Ie.sortBy,...t.sortBy}:Ie.sortBy,i={...Ie,...t,sortBy:n,prefix:e||""};return await $(this.fetch,`${this.url}/object/list/${this.bucketId}`,i,{headers:this.headers},s)})}async listV2(e,t){return this.handleOperation(async()=>{let s={...e};return await $(this.fetch,`${this.url}/object/list-v2/${this.bucketId}`,s,{headers:this.headers},t)})}encodeMetadata(e){return JSON.stringify(e)}toBase64(e){return typeof Buffer<"u"?Buffer.from(e).toString("base64"):btoa(e)}_getFinalPath(e){return`${this.bucketId}/${e.replace(/^\/+/,"")}`}_removeEmptyFolders(e){return e.replace(/^\/|\/$/g,"").replace(/\/+/g,"/")}applyTransformOptsToQuery(e,t){return t.width&&e.set("width",t.width.toString()),t.height&&e.set("height",t.height.toString()),t.resize&&e.set("resize",t.resize),t.format&&e.set("format",t.format),t.quality&&e.set("quality",t.quality.toString()),e}};var yt="2.112.3";var bt={"X-Client-Info":`storage-js/${yt}`};var W="runtime",ge=600,ye=3600,w=class extends Error{static{a(this,"CloudStoragePathError")}constructor(e){super(e),this.name="CloudStoragePathError"}},te=class{static{a(this,"WorkBuddyStorageDownload")}blob;stream;[Symbol.toStringTag]="WorkBuddyStorageDownload";constructor(e,t){this.blob=e,this.stream=t}asStream(){return this.stream()}then(e,t){return this.blob().then(e,t)}catch(e){return this.blob().catch(e)}finally(e){return this.blob().finally(e)}},H=class{static{a(this,"WorkBuddyStorageBucket")}fileApi;constructor(e){this.fileApi=e}upload(e,t,s){return _(this.fileApi.upload(v(e),t,s))}update(e,t,s){return _(this.fileApi.update(v(e),t,s))}list(e="",t){return _(this.fileApi.list(St(e),t))}listPage(e){return _(this.fileApi.listV2({...e,prefix:St(e?.prefix??"")}))}info(e){return _(this.fileApi.info(v(e)))}async exists(e){let t=await this.fileApi.exists(v(e));return t.error?{data:null,error:Et(t.error)}:{data:t.data,error:null}}download(e){let t=this.fileApi.download(v(e));return new te(()=>_(t),()=>_(t.asStream()))}remove(e){if(e.length===0)throw new w("remove requires at least one object path.");return _(this.fileApi.remove(e.map(v)))}copy(e,t){return _(this.fileApi.copy(v(e),v(t)))}move(e,t){return _(this.fileApi.move(v(e),v(t)))}createSignedUrl(e,t=ge){return _(this.fileApi.createSignedUrl(v(e),kt(t)))}createSignedUrls(e,t=ge){if(e.length===0)throw new w("createSignedUrls requires at least one object path.");return _(this.fileApi.createSignedUrls(e.map(v),kt(t)))}createSignedUploadUrl(e,t){return _(this.fileApi.createSignedUploadUrl(v(e),{upsert:t?.upsert??!1}))}uploadToSignedUrl(e,t,s,n){if(!t)throw new w("signed upload token is required.");return _(this.fileApi.uploadToSignedUrl(v(e),t,s,n))}},re=class extends H{static{a(this,"WorkBuddyStorageModule")}runtime;constructor(e){let s=e.from(W);super(s),this.runtime=new H(s)}from(e=W){if(e!==W)throw new w(`Only the "${W}" storage bucket is available.`);return this.runtime}userPath(e,t){return wt("users",e,t)}sharedPath(e,t){return wt("shared",e,t)}};function xt(r,e){let t={from:a(s=>new ee(`${r.endpoint}${R.storage}`,bt,s,e),"from")};return new re(t)}a(xt,"createStorageModule");function wt(r,e,t){let s=sr(e,"owner/user id"),n=Ce(t,!1);return v(`${r}/${s}/${n}`)}a(wt,"scopedPath");function v(r){let e=Ce(r,!1);if(!e.includes("/"))throw new w("Object paths must use users/<uid>/... or shared/<ownerUid>/....");let[t,s,...n]=e.split("/");if(t!=="users"&&t!=="shared"||!s||n.length===0)throw new w("Object paths must use users/<uid>/... or shared/<ownerUid>/....");return e}a(v,"validateObjectPath");function St(r){if(r==="")return"";let e=Ce(r,!0),[t,s]=e.split("/");if(t==="shared"&&!s)return"shared";if(t!=="users"&&t!=="shared"||!s)throw new w("List prefixes must start with users/<uid> or shared/<ownerUid>.");return e}a(St,"validateObjectPrefix");function Ce(r,e){if(typeof r!="string"||r.trim()==="")throw new w("Storage path must be a non-empty relative path.");let t=r.trim();for(let i=0;i<3;i+=1)try{let o=decodeURIComponent(t);if(o===t)break;t=o}catch{throw new w("Storage path contains invalid URL encoding.")}if(t.startsWith("/")||t.includes("\\")||t.includes("\0")||t.includes("//")||!e&&t.endsWith("/"))throw new w("Storage path is not a safe relative object path.");let s=e?t.replace(/\/+$/,""):t;if(s.split("/").some(i=>i===""||i==="."||i===".."))throw new w("Storage path traversal is not allowed.");return s}a(Ce,"validatePath");function sr(r,e){if(!r)throw new w(`${e} is not a valid storage path segment.`);let t=r;for(let s=0;s<3;s+=1)try{let n=decodeURIComponent(t);if(n===t)break;t=n}catch{throw new w(`${e} contains invalid URL encoding.`)}if(t.includes("/")||t.includes("\\")||t.includes("\0")||t==="."||t==="..")throw new w(`${e} is not a valid storage path segment.`);return t}a(sr,"validatePathSegment");function kt(r){if(!Number.isInteger(r)||r<=0||r>ye)throw new w(`Signed URL expiry must be an integer between 1 and ${ye} seconds.`);return r}a(kt,"validateSignedURLTTL");async function _(r){let e=await r;return e.error?{data:null,error:Et(e.error)}:e.data===null?{data:null,error:{name:"CloudStorageResponseError",message:"Storage API returned neither data nor an error."}}:{data:e.data,error:null}}a(_,"mapStorageResult");function Et(r){if(r instanceof Error){let e=r;return{name:e.name,message:e.message,status:e.status,statusCode:e.statusCode,code:e.code,cause:r}}return{name:"CloudStorageError",message:String(r),cause:r}}a(Et,"normalizeStorageError");var se=class{static{a(this,"WorkBuddyCloudClient")}config;database;auth;storage;llm;constructor(e,t={}){this.config=e,this.auth=new D(e,we(e,oe),{storage:t.storage,workBuddyMiniProgram:t.workBuddyMiniProgram});let s=we(e,()=>this.auth.getAccessToken());this.database=et(e,s),this.storage=xt(e,s),this.llm=new M(e,s)}get endpoint(){return this.config.endpoint}get oauthRelayBaseUrl(){return this.config.oauthRelayBaseUrl}};function vt(r){return new se(je(r),{storage:r.storage})}a(vt,"createWorkBuddyCloud");function Pt(r){return r.kind==="unauthenticated"||r.code==="invalid_grant"}a(Pt,"shouldClearCredentials");return $t(nr);})();
+//# sourceMappingURL=index.global.js.map
+</script>
+<script>
+  /* ===== 雲服務初始化 ===== */
+  const publicConfig = {
+    endpoint: 'https://ai-chat-page-61327.app.workbuddy.host',
+    oauthRelayBaseUrl: 'https://www.workbuddy.cn/v2/as/genie-baas/oauth',
+    publishableKey: 'wbpk_lG2R7lJCGtNzLG1xTjyfI9_vrcnHEUPjrfXwyRzkH6IXtDj24Yr9hWZ',
+  };
+  let cloud = null;
+
+  /* 本地 SDK 缺失時（例如 assets 沒上傳），依次從多個 CDN 兜底加載 */
+  const SDK_CDNS = [
+    'https://unpkg.com/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js',
+    'https://fastly.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js',
+    'https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js',
+  ];
+  async function ensureSdk() {
+    if (typeof WorkBuddyCloud !== 'undefined') return true;
+    for (const src of SDK_CDNS) {
+      const loaded = await new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = () => resolve(true);
+        s.onerror = () => resolve(false);
+        document.head.appendChild(s);
+      });
+      if (loaded && typeof WorkBuddyCloud !== 'undefined') return true;
+    }
+    return typeof WorkBuddyCloud !== 'undefined';
+  }
+
+  /* ===== 里府語詞典（來自 LFD.docx，含語法，繁體） ===== */
+  const DICTIONARY = `
+Leavé n. 里府；里府人；
+Leavéan n. 里府語
+Leap n. 新的（東西）
+Leapire a. 新的
+Kii 我
+Fane 你
+Et 是，(相當於英語裏的is)
+Un n. 一里烏（里府長度單位）
+Unia n. 里烏（複數）
+Montane n. 山
+Hiitotane n. 苔原
+Omessur n. 人民；人；人們
+Omessures n. 人民；人們（複數）
+Veant n. 天空
+Dimble a. 昏暗的
+Swion n. 會，將會（相當於英語裏的will）
+Awkusa n. 苔原（回火語）
+Roie 中間名，多用於表示貴族身份
+Teiho n. 山
+Coinble a. 巨大的；遼闊的；
+Àrita n. 火
+Àritune n. 亮的（東西）
+Àrible a. 明亮的
+Àriihosi v. 照耀
+Blancre a. 白色的
+Blanriho n. 火山
+Luronble a. 偉大的
+Lurone n. 偉大；偉大的（東西）
+Khalesi v. 站立；屹立；
+Tun prep. 在~的上面（物理上的）；貫穿~之中（時間上的）
+Hollune n. 大海；大洋
+Placre a. 平坦的；光滑的
+Plane n. 平坦；光滑；光滑面；平原
+Chiutasi v. 居住
+Ciensi v. 看；凝視；盯着
+Kincre a. 友善的
+Elari n. 晨光；曙光
+Elaritane n. 破曉之時；
+Jrri v. 日升
+Fiesi v. 日落
+Dun n. 大地
+Tochamsi v. 分享
+Légen n. 名字
+Sorté v. 工作
+Tovo adv. 一起
+Irré n. 希望
+Noraimsi v. 違約；背棄約定；
+Int 在動詞後面表否定
+Khan 與英語裏的The相同
+As 表示強調，類似英語裏用do的強調動詞
+K’ 位於部分專有名詞前
+De prep. 的；屬於，A de B 表示 B的A
+Ca prep. 去；到；爲了 和英語裏to類似
+Lase prep. 和英語裏For類似 lase A ca B 爲了A去做B
+Tis prep. 表修飾，命名，前者後面接動詞從句，後者接名字
+Sin prep. 來自，從
+Let 表修飾，與上文de類似
+Na 和，與英語的and一樣
+Nisen 與英語with相同
+Ver 與英語or相同
+Edives 無論，與英語whether相同
+
+
+地名
+Bellu 白露
+Foulkin 浮金
+Champsion 香章
+Tinieve 提尼微（回火語）
+Turinken 圖林根（回火語）
+Riuesu 流蘇
+Lienhat 萊因哈特（回火語）
+Khan Blanriho 聖潔之山（與萊因哈特指同一座死火山）
+Foutaine 楓丹
+
+語法
+前綴後綴（不一定嚴格遵守）
+動詞： -si
+副詞： -vo
+數詞： -se
+序數詞： -te
+形容詞： -ble/-cre/-re
+過去式： -ca
+進行時： -ow
+將來時： al-
+完成時： aka + V.
+被動語態： evo + V.
+複數： -ia
+句型
+主語 + 謂語 例：Kii sorté 我工作
+主語 + 謂語 + 賓語 例：K’àritune àriihosi dun 太陽照耀大地
+主語 + 系動詞 + 表語 例 Kii et kincre
+主語 + 謂語 + 賓語 + 賓語補足語 例 Khan àrita àriihosi fane let àrible
+(let介詞，表修飾)
+否定：若有謂語，int(否定)在賓語後面，若動詞是系動詞，int放表語後面
+`;
+
+  const DEFAULT_DICT = DICTIONARY.trim();
+
+  const RULES_TO_ZH = `【翻譯要求】
+1. 用戶輸入的內容視為里府語（Leavéan），請翻譯成漢語（繁體）。
+2. 只輸出譯文本身：不要逐詞對照，不要標註詞性，不要解釋，不要複述詞典內容，不要加「譯文：」等前綴，不要寒暄。
+3. 輸入是單詞或詞組時，直接給出漢語釋義；多個義項用「；」分隔。
+4. 輸入是句子時，直接給出通順的漢語整句，並遵循詞典【語法】一節的句型與詞綴規則。
+5. 詞典中沒有的詞不要臆造釋義，可在譯文中用「（詞典未收錄）」標註，並給出拼寫最接近的已收錄詞。
+6. 大小寫、重音符號（é、à 等）不改變詞義。
+7. 若輸入明顯不是里府語（例如漢語或英語），只回一句：本工具只做里府語→漢語翻譯。`;
+
+  const RULES_TO_LE = `【翻譯要求】
+1. 用戶輸入的內容視為漢語，請翻譯成里府語（Leavéan）。
+2. 只輸出里府語譯文本身：不要標註詞性，不要解釋，不要複述詞典內容，不要加前綴，不要寒暄。
+3. 優先使用詞典中已收錄的詞；查不到時，用詞典【語法】的前綴後綴與句型規則構造（動詞 -si、副詞 -vo、形容詞 -ble/-cre/-re、過去式 -ca、進行時 -ow、將來時 al-、完成時 aka + V.、被動 evo + V.、複數 -ia、否定 int 的位置）。
+4. 確實無法構造的詞，用最接近的已收錄詞，並在後面標註（詞典未收錄）。
+5. 輸出沿用詞典中的原文拼寫（含重音符號），不要自行拉丁化或改拼寫。
+6. 若輸入不是漢語（例如里府語或英語），只回一句：本工具只做漢語→里府語翻譯。`;
+
+  const BASE_PROMPT_TEMPLATE = `你是里府語（Leavéan）翻譯助手。你只能依據下面的《里府語詞典》進行翻譯，不得自行編造詞義。
+
+【詞典】（格式：詞條 詞性 釋義；含語法章節）
+__DICTIONARY__
+
+__RULES__`;
+
+  let modelId = null;
+  let busy = false;
+  let corrections = [];          // 使用者回饋修正記憶
+  let dictText = DEFAULT_DICT;   // 當前生效詞庫（雲端最新版）
+  let dirToZh = true;            // true：里府語→漢語；false：漢語→里府語
+  let lastQuery = '';
+  let lastAnswer = '';
+
+  const $ = id => document.getElementById(id);
+  const qEl = $('q'), goEl = $('go'), outEl = $('out'), dirBtn = $('dirBtn');
+  const fbEl = $('fb'), fbLink = $('fbLink'), fbForm = $('fbForm'), fbInput = $('fbInput'), fbSend = $('fbSend');
+  const dictLink = $('dictLink'), dictPanel = $('dictPanel'), dictArea = $('dictText');
+  const dictSave = $('dictSave'), dictCancel = $('dictCancel'), dictNote = $('dictNote');
+
+  /* ===== 模型（優先選響應快、不貴的，避免長時間思考） ===== */
+  const PREFERRED_MODELS = ['hy3', 'hy3-x', 'glm-5.3-flash', 'deepseek-v4.1-flash'];
+  async function loadModels() {
+    try {
+      const models = await cloud.llm.models.list();
+      const usable = models.filter(m => m.disabled !== true);
+      const pick = PREFERRED_MODELS.map(id => usable.find(m => m.id === id)).find(Boolean);
+      modelId = (pick || usable[0]) ? (pick || usable[0]).id : null;
+    } catch (e) {
+      modelId = null;
+    }
+  }
+
+  /* ===== 詞庫：讀取 + 保存（每次保存新增一版，取最新為準） ===== */
+  async function loadDictionary() {
+    try {
+      const { data, error } = await cloud.database
+        .from('dict_revisions')
+        .select('content')
+        .order('created_at', { ascending: false })
+        .limit(1);
+      if (error) throw error;
+      const latest = Array.isArray(data) && data[0] && data[0].content;
+      dictText = latest ? String(data[0].content).trim() : DEFAULT_DICT;
+    } catch (e) {
+      dictText = DEFAULT_DICT;
+    }
+  }
+
+  async function saveDictionary(text) {
+    const { error } = await cloud.database
+      .from('dict_revisions')
+      .insert({ content: text, note: 'edit' });
+    if (error) throw error;
+  }
+
+  /* ===== 修正記憶：讀取 + 寫入 ===== */
+  async function loadCorrections() {
+    try {
+      const { data, error } = await cloud.database
+        .from('corrections')
+        .select('source_text, correction')
+        .order('created_at', { ascending: false })
+        .limit(60);
+      if (error) throw error;
+      corrections = Array.isArray(data) ? data : [];
+    } catch (e) {
+      corrections = [];
+    }
+  }
+
+  async function saveCorrection(source, aiTranslation, correction) {
+    const { error } = await cloud.database
+      .from('corrections')
+      .insert({ source_text: source, ai_translation: aiTranslation, correction });
+    if (error) throw error;
+  }
+
+  function buildSystemPrompt() {
+    const rules = dirToZh ? RULES_TO_ZH : RULES_TO_LE;
+    let prompt = BASE_PROMPT_TEMPLATE
+      .replace('__DICTIONARY__', dictText || DEFAULT_DICT)
+      .replace('__RULES__', rules);
+
+    const lines = corrections
+      .filter(c => c && c.source_text && c.correction)
+      .map(c => `${String(c.source_text).trim()} = ${String(c.correction).trim()}`)
+      .join('\n');
+    if (lines) {
+      prompt += `
+
+【用戶修正記憶（最高優先級）】
+以下條目來自使用者的反饋糾錯，視為對詞典的補充與修正。遇到相同或高度相似的輸入時，必須嚴格採用這裡的譯法，不要沿用詞典中的舊譯法：
+${lines}
+`;
+    }
+    return prompt;
+  }
+
+  /* ===== 展示 ===== */
+  function show(text, isError) {
+    outEl.textContent = text;
+    outEl.classList.toggle('err', !!isError);
+    outEl.classList.add('show');
+  }
+
+  function describeError(e) {
+    const code = (e && e.error && e.error.code) || '';
+    if (code.startsWith('quota_')) return '額度不足或請求過於頻繁，請稍後再試。';
+    if (code.startsWith('auth_')) return '服務鑒權失敗，請通過正式地址訪問。';
+    if (code.startsWith('gateway_') || code.startsWith('model_')) return '模型暫時不可用，請稍後重試。';
+    if (code.startsWith('request_')) return '請求有誤：' + ((e.error && e.error.message) || '');
+    return '翻譯失敗，請重試。';
+  }
+
+  /* ===== 方向切換 ===== */
+  function applyDir() {
+    dirBtn.textContent = dirToZh ? '里府語 → 漢語' : '漢語 → 里府語';
+  }
+  dirBtn.addEventListener('click', () => {
+    dirToZh = !dirToZh;
+    applyDir();
+    outEl.classList.remove('show');
+    fbEl.classList.remove('show');
+    qEl.focus();
+  });
+  applyDir();
+
+  /* ===== 翻譯 ===== */
+  async function translate() {
+    const text = qEl.value.trim();
+    if (!text || busy) return;
+    if (!cloud) { show('組件尚未載入完成，請稍候或刷新重試。', true); return; }
+    if (!modelId) { show('模型尚未就緒，請稍後重試。', true); return; }
+
+    busy = true;
+    goEl.disabled = true;
+    goEl.innerHTML = '<span class="spin"></span>';
+    outEl.classList.remove('show', 'err');
+    outEl.textContent = '';
+    fbEl.classList.remove('show');
+    fbForm.classList.remove('show');
+    fbLink.style.display = '';
+    fbInput.value = '';
+
+    lastQuery = text;
+    let answer = '';
+    let timedOut = false;
+    const controller = new AbortController();
+    const timer = setTimeout(() => { timedOut = true; controller.abort(); }, 30000);
+
+    try {
+      for await (const chunk of cloud.llm.chat.completions.create({
+        model: modelId,
+        messages: [
+          { role: 'system', content: buildSystemPrompt() },
+          { role: 'user', content: text },
+        ],
+        stream: true,
+        signal: controller.signal,
+      })) {
+        const delta = chunk.choices[0]?.delta;
+        if (delta?.content) {
+          answer += delta.content;
+          show(answer.trimStart(), false);
+        }
+      }
+      if (!answer) {
+        show('沒有得到譯文，請重試。', true);
+      } else {
+        lastAnswer = answer.trim();
+        fbEl.classList.add('show');
+      }
+    } catch (e) {
+      if (timedOut) {
+        show(answer ? answer : '翻譯超時，請重試。', !answer);
+        if (answer) { lastAnswer = answer.trim(); fbEl.classList.add('show'); }
+      } else {
+        show(answer ? answer : describeError(e), !answer);
+        if (answer) { lastAnswer = answer.trim(); fbEl.classList.add('show'); }
+      }
+    } finally {
+      clearTimeout(timer);
+      busy = false;
+      goEl.disabled = false;
+      goEl.textContent = '翻譯';
+    }
+  }
+
+  /* ===== 反饋 ===== */
+  fbLink.addEventListener('click', () => {
+    fbForm.classList.add('show');
+    fbLink.style.display = 'none';
+    fbInput.focus();
+  });
+
+  async function submitFeedback() {
+    const correction = fbInput.value.trim();
+    if (!correction || fbSend.disabled) return;
+    fbSend.disabled = true;
+    fbSend.textContent = '…';
+    try {
+      await saveCorrection(lastQuery, lastAnswer, correction);
+      await loadCorrections();          // 立即生效，下一次翻譯就帶上這條記憶
+      fbForm.classList.remove('show');
+      fbLink.style.display = '';
+      fbLink.textContent = '已記住';
+      setTimeout(() => { fbLink.textContent = '反饋'; }, 2600);
+    } catch (e) {
+      fbSend.textContent = '提交';
+      fbSend.disabled = false;
+      fbForm.classList.remove('show');
+      fbLink.style.display = '';
+      fbLink.textContent = '提交失敗，重試';
+      return;
+    }
+    fbSend.textContent = '提交';
+    fbSend.disabled = false;
+    fbInput.value = '';
+  }
+
+  fbSend.addEventListener('click', submitFeedback);
+  fbInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); submitFeedback(); }
+  });
+
+  /* ===== 詞庫編輯面板 ===== */
+  function openDict() {
+    dictArea.value = dictText;
+    dictNote.textContent = '';
+    dictSave.textContent = '保存';
+    dictSave.disabled = false;
+    dictPanel.classList.add('show');
+    dictArea.focus();
+    dictArea.setSelectionRange(0, 0);
+  }
+  function closeDict() { dictPanel.classList.remove('show'); }
+
+  async function commitDict() {
+    const text = dictArea.value.trim();
+    if (!text || dictSave.disabled) return;
+    dictSave.disabled = true;
+    dictSave.textContent = '…';
+    try {
+      await saveDictionary(text);
+      await loadDictionary();            // 立即生效，後續翻譯用新詞庫
+      dictNote.textContent = '已保存，立即生效';
+      setTimeout(closeDict, 700);
+    } catch (e) {
+      dictNote.textContent = '保存失敗，請重試';
+      dictSave.disabled = false;
+      dictSave.textContent = '保存';
+    }
+  }
+
+  dictLink.addEventListener('click', openDict);
+  dictCancel.addEventListener('click', closeDict);
+  dictSave.addEventListener('click', commitDict);
+  dictArea.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); commitDict(); }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && dictPanel.classList.contains('show')) closeDict();
+  });
+
+  /* ===== 主交互 ===== */
+  goEl.addEventListener('click', translate);
+  qEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); translate(); }
+  });
+
+  (async function init() {
+    const sdkOk = await ensureSdk();
+    if (!sdkOk) {
+      show('翻譯組件載入失敗，請檢查網路後刷新頁面。', true);
+      goEl.disabled = true;
+      return;
+    }
+    cloud = WorkBuddyCloud.createWorkBuddyCloud({
+      endpoint: publicConfig.endpoint,
+      oauthRelayBaseUrl: publicConfig.oauthRelayBaseUrl,
+      publishableKey: publicConfig.publishableKey,
+    });
+    await Promise.all([loadModels(), loadCorrections(), loadDictionary()]);
+    qEl.focus();
+  })();
+</script>
+</body>
+</html>
