@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>里府語詞典</title>
-<link rel="icon" href="./Leavean/assets/logo.png">
+<link rel="icon" href="assets/logo.png">
 <style>
   :root {
     --bg: #F5EFEA;
@@ -255,7 +255,7 @@
 </head>
 <body>
 
-<img class="mark" src="./Leavean/assets/logo.png" alt="">
+<img class="mark" src="assets/logo.png" alt="">
 
 <main>
   <div class="wrap">
@@ -288,7 +288,7 @@
 </div>
 
 <!-- 雲服務 SDK：本地文件優先，避免 CDN 不可達導致整頁失效 -->
-<script src="./Leavean/assets/cloud-sdk.global.js"></script>
+<script src="assets/cloud-sdk.global.js"></script>
 <script>
   /* ===== 雲服務初始化 ===== */
   const publicConfig = {
@@ -298,16 +298,24 @@
   };
   let cloud = null;
 
-  /* 本地 SDK 缺失時，退回 CDN 再加載一次 */
+  /* 本地 SDK 缺失時（例如 assets 沒上傳），依次從多個 CDN 兜底加載 */
+  const SDK_CDNS = [
+    'https://unpkg.com/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js',
+    'https://fastly.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js',
+    'https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js',
+  ];
   async function ensureSdk() {
     if (typeof WorkBuddyCloud !== 'undefined') return true;
-    await new Promise(resolve => {
-      const s = document.createElement('script');
-      s.src = 'https://unpkg.com/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js';
-      s.onload = resolve;
-      s.onerror = resolve;
-      document.head.appendChild(s);
-    });
+    for (const src of SDK_CDNS) {
+      const loaded = await new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = () => resolve(true);
+        s.onerror = () => resolve(false);
+        document.head.appendChild(s);
+      });
+      if (loaded && typeof WorkBuddyCloud !== 'undefined') return true;
+    }
     return typeof WorkBuddyCloud !== 'undefined';
   }
 
